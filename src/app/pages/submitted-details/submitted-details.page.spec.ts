@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { SubmittedDetailsPage } from './submitted-details.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 describe('SubmittedDetailsPage', () => {
   let component: SubmittedDetailsPage;
@@ -10,6 +12,7 @@ describe('SubmittedDetailsPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmittedDetailsPage ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
