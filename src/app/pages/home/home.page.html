@@ -1,0 +1,418 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-no-padding">Pre-Diagnostic Declaration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <div id="container">
+  </div> -->
+  <ion-grid class="bg-color" fixed>
+
+    <ion-list lines="full" class="form-list">
+      <ion-item>
+        <ion-input placeholder="Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Email Address"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Contact Number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Product Brand"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Product Model"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Product Serial Number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Product IMEI Number"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-col>
+          B01*
+        </ion-col>
+        <ion-select value="CSO/SSO" interface="popover">
+          <ion-select-option value="CSO/SSO" disabled>CSO/SSO</ion-select-option>
+          <ion-select-option value="CSO">CSO</ion-select-option>
+          <ion-select-option value="SSO">SSO</ion-select-option>
+        </ion-select>
+        <ion-col>
+          <ion-input style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input>
+        </ion-col>
+      </ion-item>
+    </ion-list>
+    
+    <ion-list lines="full" class="form-list">
+
+      <ion-item>
+        <!-- TO WORDWRAP LONG STRING: class="ion-text-wrap" -->
+        <ion-label class="ion-text-wrap">Can Switch On<br><p>Does the device able to switch on?</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">Battery Charging Condition<br><p>Does the device’s battery and charger is in working condition?</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">SIM Card<br><p>Does SIM card and Memory card been removed from the device?</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">OS ID<br><p>Does the device signed out from its OS ID? Example, Apple ID and Samsung ID</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">Factory Mode<br><p>In the event of diagnostic/repair, does customer agree that the device may set to factory mode?</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">Accessories<br><p>Is there any accessories attached?</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">External Damage<br><p>Are there any sign of scratches, dented, or damages cause by external force?</p></ion-label>
+        <ion-select value="false" interface="action-sheet">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="ion-text-wrap">Security<br><p>Does the device secured with password or pattern lock?</p></ion-label>
+        <ion-select  interface="action-sheet" [(ngModel)]="lock">
+          <ion-select-option value="true">Yes</ion-select-option>
+          <ion-select-option value="false" >No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="lock == 'true' ">
+        <ion-label class="ion-text-wrap">Lock Type<br></ion-label>
+        <ion-select  interface="action-sheet" [(ngModel)]="lockType">
+          <ion-select-option value="1">Pattern</ion-select-option>
+          <ion-select-option value="2" >Password</ion-select-option>
+          <ion-select-option value="3" >Both</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="lockType == '1' ">
+        <div class="container">
+          <h1>pattern-lock-js</h1>
+          <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=tympanix&repo=pattern-lock-js&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+          <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <g class="lock-actives"></g>
+              <g class="lock-lines"></g>
+              <g class="lock-dots">
+                  <circle cx="20" cy="20" r="2"/>
+                  <circle cx="50" cy="20" r="2"/>
+                  <circle cx="80" cy="20" r="2"/>
+  
+                  <circle cx="20" cy="50" r="2"/>
+                  <circle cx="50" cy="50" r="2"/>
+                  <circle cx="80" cy="50" r="2"/>
+  
+                  <circle cx="20" cy="80" r="2"/>
+                  <circle cx="50" cy="80" r="2"/>
+                  <circle cx="80" cy="80" r="2"/>
+              </g>
+            </svg>
+        </div>
+      </ion-item>
+      <ion-item *ngIf="lockType == '2' ">
+        <ion-input placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="lockType == '3' ">
+        <div id="lock"></div>
+      </ion-item>
+
+      <ion-card>
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImage == '' ">
+          <ion-row>
+            <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
+              <ion-icon size name="photos" ios="ios-photos" md="md-photos"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center ion-no-padding">
+              <ion-label>Top View</ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div *ngIf="tempImage !== '' ">
+          <ion-row>
+            <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding"
+            *ngFor="let photo of photoService.photos; index as position">
+            <ion-img [src]="photo.webviewPath"></ion-img>
+            </ion-col>
+          </ion-row>
+        </div>
+        
+
+        <ion-row>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card>
+        <ion-row>
+          <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
+            <ion-icon size name="photos" ios="ios-photos" md="md-photos"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center ion-no-padding">
+            <ion-label>Bottom View</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top: 20px;">
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card>
+        <ion-row>
+          <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
+            <ion-icon size name="photos" ios="ios-photos" md="md-photos"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center ion-no-padding">
+            <ion-label>Front View</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top: 20px;">
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card>
+        <ion-row>
+          <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
+            <ion-icon size name="photos" ios="ios-photos" md="md-photos"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center ion-no-padding">
+            <ion-label>Back View</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top: 20px;">
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card>
+        <ion-row>
+          <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
+            <ion-icon size name="photos" ios="ios-photos" md="md-photos"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center ion-no-padding">
+            <ion-label>Side Top Right View</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top: 20px;">
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card>
+        <ion-row>
+          <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
+            <ion-icon size name="photos" ios="ios-photos" md="md-photos"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center ion-no-padding">
+            <ion-label>Side Bottom Left View</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top: 20px;">
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label>Upload Additional Image</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top: 20px;">
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openCamera()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="camera" ios="ios-camera" md="md-camera"></ion-icon>
+                <span>Camera</span>
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+          <ion-col style="background-color: #6B6867;">
+            <ion-tab-button (click)="openGallery()">
+              <ion-label style="color: white; font-size: 20px;">
+                <ion-icon style="padding-right: 10px;" name="images" ios="ios-images" md="md-images"></ion-icon>
+                Gallery
+              </ion-label>
+            </ion-tab-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+
+        <div class="ion-text-center signature">
+          <ion-row>
+            <ion-col>
+              <ion-label >Signature</ion-label>  
+            </ion-col>
+          </ion-row>
+          <ion-row >
+            <ion-col >
+              <ion-button color="danger" size="small" (click)="openSignatureModal()" fill="outline">
+                Open Signature Pad
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          
+        </div>
+
+        <div class="ion-text-center">
+            <ion-button size="small" (click)="opentTnc()" expand="block" fill="clear" >
+              I agree to the Terms & Conditions
+            </ion-button>
+        </div>
+        
+        
+
+
+      
+
+    </ion-list>
+
+    <div class="ion-text-center">
+      <ion-button color="light" style="color: black; text-align: center;" (click)="onClick()" >
+        SUBMIT
+      </ion-button>
+    </div>
+    
+  </ion-grid>
+</ion-content>

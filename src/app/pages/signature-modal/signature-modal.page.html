@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+    <ion-title>Signature Pad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-list lines="full" class="form-list">
+      <ion-item>
+        <p>Sign in the box provided</p>
+      </ion-item>
+
+      <ion-item>
+        <canvas></canvas>
+      </ion-item>
+
+      <ion-item>
+        <ion-button style="height: 34px; width: 50px;" color="danger" (click)="onClick()" >
+          Save
+        </ion-button>
+        <ion-button style="height: 34px; width: 50px;" color="light" (click)="onClick()" >
+          Clear
+        </ion-button>
+      </ion-item>
+      
+    </ion-list>
+  </ion-grid>
+</ion-content>

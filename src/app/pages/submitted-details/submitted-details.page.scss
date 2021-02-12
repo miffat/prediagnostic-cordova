@@ -1,0 +1,31 @@
+.card-header {
+    padding: 10px;
+    background-color: lightgrey;
+}
+
+.card-subtitle {
+    margin: 0;
+    color: black;
+    text-transform: capitalize !important;
+    font-size: 0.9em;
+}
+
+.photo {
+    width: 50%;
+}
+
+ion-card-content {
+    display: flex;
+    position: relative;
+}
+
+.detailItems {
+    padding-right: 12px;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    color: gray;
+}
+
+.label {
+    font-size: 0.9em;
+}

@@ -1,0 +1,47 @@
+<ion-content class="ion-padding">
+  <div class="login-logo">
+    <img src="assets/img/logo.png">
+    <p><b>Pre-Diagnostic Declaration Form</b></p>
+  </div>
+
+  <form #loginForm="ngForm" novalidate>
+    <ion-list class="login_form">
+      <ion-item>
+        <ion-input placeholder="Username" name="username" type="text"  spellcheck="false" autocapitalize="off"
+          required><ion-icon style="color: red; padding-right: 20px;" name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger">
+        <p class="ion-padding-start">
+          Username is required
+        </p>
+      </ion-text>
+
+      <ion-item>
+        <ion-input placeholder="Password" name="password" type="password"  required>
+          <ion-icon style="color: red; padding-right: 20px;" name="key" ios="ios-key" md="md-key"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger">
+        <p class="ion-padding-start">
+          Password is required
+        </p>
+      </ion-text>
+    </ion-list>
+
+    <div class="login_btn">
+      <ion-button style="width: 130px;" color="danger" (click)="onLogin()" type="submit">Login
+        <ion-icon style="padding-left: 5px;" name="log-in" ios="ios-log-in" md="md-log-in"></ion-icon>
+      </ion-button>
+    </div>
+  </form>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+    <div style="text-align: center;">
+      <span>Version {{version}}</span>
+    </div>
+</ion-footer>
