@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content>
-  <signature-pad [options]="signaturePadOptions"  id="signatureCanvas"></signature-pad>
   <ion-grid>
     <ion-list lines="full" class="form-list">
       <ion-item>
@@ -16,14 +15,21 @@
       </ion-item>
 
       <ion-item>
-        <!-- <canvas></canvas> -->
+        <signature-pad #SignaturePad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
+				(onEndEvent)="drawComplete()"></signature-pad>
+        
+          <!-- <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad> -->
       </ion-item>
 
+      <!-- <ion-item *ngIf="sign !== '' ">
+        <img src="{{sign}}">
+      </ion-item> -->
+      
       <ion-item>
         <ion-button style="height: 34px; width: 50px;" color="danger" (click)="onClick()" >
           Save
         </ion-button>
-        <ion-button style="height: 34px; width: 50px;" color="light" (click)="onClick()" >
+        <ion-button style="height: 34px; width: 50px;" color="light" (click)="clearSign()" >
           Clear
         </ion-button>
       </ion-item>

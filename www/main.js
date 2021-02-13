@@ -53,37 +53,111 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _raw_loader_app_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./app.component.html */ "VzVu");
 /* harmony import */ var _app_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component.scss */ "ynWL");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "qlzE");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "uJRU");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "c7TG");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "0QAI");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/authentication.service */ "ej43");
+/* harmony import */ var _services_clooneprovider_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/clooneprovider.service */ "crRc");
 
 
 
 
 
-// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+
+
+
+
+
+
 let AppComponent = class AppComponent {
-    constructor(router) {
+    constructor(platform, router, appVersion, screenOrientation, authenticationService, clooneprovider, http) {
+        this.platform = platform;
         this.router = router;
+        this.appVersion = appVersion;
+        this.screenOrientation = screenOrientation;
+        this.authenticationService = authenticationService;
+        this.clooneprovider = clooneprovider;
+        this.http = http;
         this.appPages = [
             { title: 'Pre-Diagnostic Declaration', url: '/home' },
             { title: 'Submitted Form', url: '/submitted' },
         ];
+        this.initializeApp();
     }
     // ionViewWillEnter() {
     //   this.splashScreen.show();
     // }
+    initializeApp() {
+        this.platform.ready().then(() => {
+            this.appVersion.getVersionNumber().then((res) => {
+                if (this.platform.is('ios')) {
+                    this.thisPlatform = 'ios';
+                }
+                else if (this.platform.is('android')) {
+                    this.thisPlatform = 'android';
+                }
+                this.app_version = res;
+                console.log("from app component, app version: ", res);
+                this.versionCheck();
+                // this.storage.set(this.Clooneprovider.DWStorage.app_version,res);
+            });
+            this.screenOrientation.lock('portrait');
+            this.authenticationService.authenticationState.subscribe(state => {
+                console.log("status=", state);
+                if (state) {
+                    this.router.navigate(['home']);
+                    // this.Is_NotloginPage = true;
+                    // this.menuCtrl.enable(true);
+                }
+                else {
+                    this.router.navigate(['login']);
+                    // this.Is_NotloginPage = false;
+                    // this.menuCtrl.enable(false);
+                }
+            });
+        });
+    }
     logout() {
-        this.router.navigateByUrl('/login');
+        this.authenticationService.logout();
+        // this.router.navigateByUrl('/login');
         // this.userData.logout().then(() => {
         //   return this.router.navigateByUrl('/login');
         // });
     }
+    versionCheck() {
+        let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let postForm = {
+            check_version: 'check_version',
+            os: this.thisPlatform,
+            version: this.app_version,
+        };
+        console.log(postForm);
+        this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
+            let apiData = resp.json();
+            console.log('Succes get data', apiData);
+            if (apiData.success == 0) {
+            }
+            else {
+            }
+        }, (error) => {
+            console.log('Failed: ', error);
+        });
+    }
 };
 AppComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+    { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_6__["AppVersion"] },
+    { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"] },
+    { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_9__["AuthenticationService"] },
+    { type: _services_clooneprovider_service__WEBPACK_IMPORTED_MODULE_10__["ClooneproviderService"] },
+    { type: _angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-root',
         template: _raw_loader_app_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_app_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -121,10 +195,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "jhN1");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "c7TG");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "Sy1n");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "a/9d");
+/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! angular2-signaturepad */ "Zw0B");
+/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "uJRU");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "0QAI");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic/storage */ "e8h1");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/http */ "qlzE");
+
+
+
+
+
+
 
 
 
@@ -139,14 +226,151 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"]],
+        imports: [
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
+            angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8__["SignaturePadModule"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_11__["IonicStorageModule"].forRoot(),
+            _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
+            _angular_http__WEBPACK_IMPORTED_MODULE_13__["HttpModule"]
+        ],
         providers: [
             _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_7__["Camera"],
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
+            _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_9__["AppVersion"],
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__["ScreenOrientation"],
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ "crRc":
+/*!****************************************************!*\
+  !*** ./src/app/services/clooneprovider.service.ts ***!
+  \****************************************************/
+/*! exports provided: ClooneproviderService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClooneproviderService", function() { return ClooneproviderService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "c7TG");
+
+
+
+let ClooneproviderService = class ClooneproviderService {
+    constructor(alertCtrl) {
+        this.alertCtrl = alertCtrl;
+        this.apiUrl = "http://eticket.senheng.com.my/sh_ebs/defectAPI.php";
+        this.invalidTitle = 'Login Error';
+        this.invalidMsg = 'Invalid username/password';
+        this.unableConnectTitle = 'Unable to connect to server';
+        this.unableConnectMsg = 'Could not connect to server. Please try again later.';
+    }
+    showAlert(title, text) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alert = yield this.alertCtrl.create({
+                header: title,
+                message: text,
+                buttons: ['OK'],
+            });
+            yield alert.present();
+            return alert;
+        });
+    }
+    jsonToURLEncoded(jsonString) {
+        return Object.keys(jsonString).map(function (key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
+        }).join('&');
+    }
+};
+ClooneproviderService.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
+];
+ClooneproviderService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], ClooneproviderService);
+
+
+
+/***/ }),
+
+/***/ "ej43":
+/*!****************************************************!*\
+  !*** ./src/app/services/authentication.service.ts ***!
+  \****************************************************/
+/*! exports provided: AuthenticationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "c7TG");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "e8h1");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "qCKp");
+
+
+
+
+
+const TOKEN_KEY = 'auth-token';
+let AuthenticationService = class AuthenticationService {
+    constructor(storage, plt) {
+        //auto login function
+        // this.plt.ready().then(() => {
+        //     this.checkToken();
+        //   });
+        this.storage = storage;
+        this.plt = plt;
+        this.authenticationState = new rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"](false);
+    }
+    checkToken() {
+        console.log("checktoken detected");
+        this.storage.get(TOKEN_KEY).then(res => {
+            if (res) {
+                this.authenticationState.next(true);
+            }
+        });
+    }
+    login() {
+        console.log("login detected");
+        return this.storage.set(TOKEN_KEY, 'logged in senheng prediagnostic').then(() => {
+            this.authenticationState.next(true);
+        });
+    }
+    logout() {
+        console.log("logout detected");
+        return this.storage.remove(TOKEN_KEY).then(() => {
+            // this.storage.clear();
+            this.authenticationState.next(false);
+        });
+    }
+    isAuthenticated() {
+        console.log("authenticated detected", this.authenticationState.value);
+        return this.authenticationState.value;
+    }
+};
+AuthenticationService.ctorParameters = () => [
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] }
+];
+AuthenticationService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], AuthenticationService);
 
 
 
@@ -160,212 +384,385 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./ion-action-sheet.entry.js": [
-		"dUtr",
+	"./ion-action-sheet-controller_8.entry.js": [
+		"0BR9",
 		"common",
 		0
 	],
-	"./ion-alert.entry.js": [
-		"Q8AI",
+	"./ion-action-sheet-ios.entry.js": [
+		"bnjm",
 		"common",
 		1
 	],
-	"./ion-app_8.entry.js": [
-		"hgI1",
+	"./ion-action-sheet-md.entry.js": [
+		"utt2",
 		"common",
 		2
 	],
-	"./ion-avatar_3.entry.js": [
-		"CfoV",
+	"./ion-alert-ios.entry.js": [
+		"yaSn",
 		"common",
 		3
 	],
-	"./ion-back-button.entry.js": [
-		"Nt02",
+	"./ion-alert-md.entry.js": [
+		"2/RY",
 		"common",
 		4
 	],
-	"./ion-backdrop.entry.js": [
-		"Q2Bp",
+	"./ion-app_8-ios.entry.js": [
+		"iInF",
+		"common",
 		5
 	],
-	"./ion-button_2.entry.js": [
-		"0Pbj",
+	"./ion-app_8-md.entry.js": [
+		"K9Nc",
 		"common",
 		6
 	],
-	"./ion-card_5.entry.js": [
-		"ydQj",
+	"./ion-avatar_3-ios.entry.js": [
+		"hH1s",
 		"common",
 		7
 	],
-	"./ion-checkbox.entry.js": [
-		"4fMi",
+	"./ion-avatar_3-md.entry.js": [
+		"Jw9y",
 		"common",
 		8
 	],
-	"./ion-chip.entry.js": [
-		"czK9",
+	"./ion-back-button-ios.entry.js": [
+		"ouVF",
 		"common",
 		9
 	],
-	"./ion-col_3.entry.js": [
-		"/CAe",
+	"./ion-back-button-md.entry.js": [
+		"/joy",
+		"common",
 		10
 	],
-	"./ion-datetime_3.entry.js": [
-		"WgF3",
-		"common",
+	"./ion-backdrop-ios.entry.js": [
+		"uJLv",
 		11
 	],
-	"./ion-fab_3.entry.js": [
-		"uQcF",
-		"common",
+	"./ion-backdrop-md.entry.js": [
+		"fSmE",
 		12
 	],
-	"./ion-img.entry.js": [
-		"wHD8",
+	"./ion-button_2-ios.entry.js": [
+		"s1jK",
+		"common",
 		13
 	],
-	"./ion-infinite-scroll_2.entry.js": [
-		"2lz6",
+	"./ion-button_2-md.entry.js": [
+		"Wou7",
+		"common",
 		14
 	],
-	"./ion-input.entry.js": [
-		"ercB",
+	"./ion-card_5-ios.entry.js": [
+		"qshq",
 		"common",
 		15
 	],
-	"./ion-item-option_3.entry.js": [
-		"MGMP",
+	"./ion-card_5-md.entry.js": [
+		"Q1uX",
 		"common",
 		16
 	],
-	"./ion-item_8.entry.js": [
-		"9bur",
+	"./ion-checkbox-ios.entry.js": [
+		"059i",
 		"common",
 		17
 	],
-	"./ion-loading.entry.js": [
-		"cABk",
+	"./ion-checkbox-md.entry.js": [
+		"eLfv",
 		"common",
 		18
 	],
-	"./ion-menu_3.entry.js": [
-		"kyFE",
+	"./ion-chip-ios.entry.js": [
+		"+FzG",
 		"common",
 		19
 	],
-	"./ion-modal.entry.js": [
-		"TvZU",
+	"./ion-chip-md.entry.js": [
+		"yRpg",
 		"common",
 		20
 	],
-	"./ion-nav_2.entry.js": [
-		"vnES",
-		"common",
+	"./ion-col_3.entry.js": [
+		"/CAe",
 		21
 	],
-	"./ion-popover.entry.js": [
-		"qCuA",
+	"./ion-datetime_3-ios.entry.js": [
+		"Z1Jy",
 		"common",
 		22
 	],
-	"./ion-progress-bar.entry.js": [
-		"0tOe",
+	"./ion-datetime_3-md.entry.js": [
+		"X0Dk",
 		"common",
 		23
 	],
-	"./ion-radio_2.entry.js": [
-		"h11V",
+	"./ion-fab_3-ios.entry.js": [
+		"wvyA",
 		"common",
 		24
 	],
-	"./ion-range.entry.js": [
-		"XGij",
+	"./ion-fab_3-md.entry.js": [
+		"NkKY",
 		"common",
 		25
 	],
-	"./ion-refresher_2.entry.js": [
-		"nYbb",
-		"common",
+	"./ion-img.entry.js": [
+		"wHD8",
 		26
 	],
-	"./ion-reorder_2.entry.js": [
-		"smMY",
+	"./ion-infinite-scroll_2-ios.entry.js": [
+		"nf6t",
 		"common",
 		27
 	],
+	"./ion-infinite-scroll_2-md.entry.js": [
+		"lg/V",
+		"common",
+		28
+	],
+	"./ion-input-ios.entry.js": [
+		"sdJS",
+		"common",
+		29
+	],
+	"./ion-input-md.entry.js": [
+		"uQUw",
+		"common",
+		30
+	],
+	"./ion-item-option_3-ios.entry.js": [
+		"Pa1g",
+		"common",
+		31
+	],
+	"./ion-item-option_3-md.entry.js": [
+		"KTnd",
+		"common",
+		32
+	],
+	"./ion-item_8-ios.entry.js": [
+		"Z51p",
+		"common",
+		33
+	],
+	"./ion-item_8-md.entry.js": [
+		"8bam",
+		"common",
+		34
+	],
+	"./ion-loading-ios.entry.js": [
+		"J3Yu",
+		"common",
+		35
+	],
+	"./ion-loading-md.entry.js": [
+		"N3W9",
+		"common",
+		36
+	],
+	"./ion-menu_4-ios.entry.js": [
+		"GEuc",
+		"common",
+		37
+	],
+	"./ion-menu_4-md.entry.js": [
+		"BHpw",
+		"common",
+		38
+	],
+	"./ion-modal-ios.entry.js": [
+		"mgaC",
+		"common",
+		39
+	],
+	"./ion-modal-md.entry.js": [
+		"EpFf",
+		"common",
+		40
+	],
+	"./ion-nav_5.entry.js": [
+		"qF1+",
+		"common",
+		41
+	],
+	"./ion-popover-ios.entry.js": [
+		"Gdks",
+		"common",
+		42
+	],
+	"./ion-popover-md.entry.js": [
+		"VgKV",
+		"common",
+		43
+	],
+	"./ion-progress-bar-ios.entry.js": [
+		"0PGG",
+		"common",
+		44
+	],
+	"./ion-progress-bar-md.entry.js": [
+		"h/Bu",
+		"common",
+		45
+	],
+	"./ion-radio_2-ios.entry.js": [
+		"5bK7",
+		"common",
+		46
+	],
+	"./ion-radio_2-md.entry.js": [
+		"pOmE",
+		"common",
+		47
+	],
+	"./ion-range-ios.entry.js": [
+		"5g9+",
+		"common",
+		48
+	],
+	"./ion-range-md.entry.js": [
+		"fD4w",
+		"common",
+		49
+	],
+	"./ion-refresher_2-ios.entry.js": [
+		"CXux",
+		"common",
+		50
+	],
+	"./ion-refresher_2-md.entry.js": [
+		"RODS",
+		"common",
+		51
+	],
+	"./ion-reorder_2-ios.entry.js": [
+		"IdzL",
+		"common",
+		52
+	],
+	"./ion-reorder_2-md.entry.js": [
+		"Ftzj",
+		"common",
+		53
+	],
 	"./ion-ripple-effect.entry.js": [
 		"STjf",
-		28
+		54
 	],
 	"./ion-route_4.entry.js": [
 		"k5eQ",
 		"common",
-		29
+		55
 	],
-	"./ion-searchbar.entry.js": [
-		"OR5t",
+	"./ion-searchbar-ios.entry.js": [
+		"l0q3",
 		"common",
-		30
+		56
 	],
-	"./ion-segment_2.entry.js": [
-		"fSgp",
+	"./ion-searchbar-md.entry.js": [
+		"mLlG",
 		"common",
-		31
+		57
 	],
-	"./ion-select_3.entry.js": [
-		"lfGF",
+	"./ion-segment_2-ios.entry.js": [
+		"Iymp",
 		"common",
-		32
+		58
 	],
-	"./ion-slide_2.entry.js": [
-		"5xYT",
-		33
+	"./ion-segment_2-md.entry.js": [
+		"3msy",
+		"common",
+		59
+	],
+	"./ion-select_3-ios.entry.js": [
+		"rYLK",
+		"common",
+		60
+	],
+	"./ion-select_3-md.entry.js": [
+		"WOXB",
+		"common",
+		61
+	],
+	"./ion-slide_2-ios.entry.js": [
+		"F/Xn",
+		62
+	],
+	"./ion-slide_2-md.entry.js": [
+		"k8us",
+		63
 	],
 	"./ion-spinner.entry.js": [
 		"nI0H",
 		"common",
-		34
+		64
 	],
-	"./ion-split-pane.entry.js": [
-		"NAQR",
-		35
+	"./ion-split-pane-ios.entry.js": [
+		"edcM",
+		65
 	],
-	"./ion-tab-bar_2.entry.js": [
-		"knkW",
+	"./ion-split-pane-md.entry.js": [
+		"RyPD",
+		66
+	],
+	"./ion-tab-bar_2-ios.entry.js": [
+		"DP4G",
 		"common",
-		36
+		67
+	],
+	"./ion-tab-bar_2-md.entry.js": [
+		"gaXT",
+		"common",
+		68
 	],
 	"./ion-tab_2.entry.js": [
 		"TpdJ",
 		"common",
-		37
+		69
 	],
 	"./ion-text.entry.js": [
 		"ISmu",
 		"common",
-		38
+		70
 	],
-	"./ion-textarea.entry.js": [
-		"U7LX",
+	"./ion-textarea-ios.entry.js": [
+		"xNZy",
 		"common",
-		39
+		71
 	],
-	"./ion-toast.entry.js": [
-		"L3sA",
+	"./ion-textarea-md.entry.js": [
+		"p1XJ",
 		"common",
-		40
+		72
 	],
-	"./ion-toggle.entry.js": [
-		"IUOf",
+	"./ion-toast-ios.entry.js": [
+		"XGfm",
 		"common",
-		41
+		73
+	],
+	"./ion-toast-md.entry.js": [
+		"Y/uG",
+		"common",
+		74
+	],
+	"./ion-toggle-ios.entry.js": [
+		"WbT0",
+		"common",
+		75
+	],
+	"./ion-toggle-md.entry.js": [
+		"upP9",
+		"common",
+		76
 	],
 	"./ion-virtual-scroll.entry.js": [
 		"8Mb5",
-		42
+		77
 	]
 };
 function webpackAsyncContext(req) {

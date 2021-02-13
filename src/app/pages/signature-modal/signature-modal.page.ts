@@ -1,53 +1,50 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+// import { SignaturePad } from 'ngx-signaturepad/signature-pad';
 
 @Component({
   selector: 'app-signature-modal',
   templateUrl: './signature-modal.page.html',
   styleUrls: ['./signature-modal.page.scss'],
 })
+
 export class SignatureModalPage implements OnInit {
-  @ViewChild(SignaturePad) public signaturePad : SignaturePad;
+  @ViewChild('SignaturePad') signaturePad: SignaturePad;
 
-  public signaturePadOptions : Object = {
+  public signaturePadOptions: Object = { // Check out https://github.com/szimek/signature_pad
     'minWidth': 2,
-    'canvasWidth': 340,
-    'canvasHeight': 200
-  };
-  public signatureImage : string;
+    'canvasWidth': 400,
+    'canvasHeight': 200,
+    'backgroundColor': 'white',
 
+  };
+
+  sign: any;
+  
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController
   ) { }
 
-  drawCancel() {
-    // this.navCtrl.push();
-  }
-
-   drawComplete() {
-    this.signatureImage = this.signaturePad.toDataURL();
-    // this.navCtrl.push(HomePage, {signatureImage: this.signatureImage});
-  }
-
-  drawClear() {
-    this.signaturePad.clear();
-  }
-
-  canvasResize() {
-    let canvas = document.querySelector('canvas');
-    this.signaturePad.set('minWidth', 1);
-    this.signaturePad.set('canvasWidth', canvas.offsetWidth);
-    this.signaturePad.set('canvasHeight', canvas.offsetHeight);
-  }
-
-  ngAfterViewInit() {
-    this.signaturePad.clear();
-    this.canvasResize();
-  }
-
   ngOnInit() {
+  }
+
+  
+
+  drawComplete() {
+    // will be notified of szimek/signature_pad's onEnd event
+    this.sign = this.signaturePad.toDataURL();
+    console.log(this.sign);
+  }
+
+  drawStart() {
+    // will be notified of szimek/signature_pad's onBegin event
+    console.log('begin drawing');
+  }
+
+  clearSign() {
+    this.signaturePad.clear();
   }
 
   dismiss() {

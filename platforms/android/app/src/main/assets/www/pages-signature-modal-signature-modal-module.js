@@ -14,9 +14,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "c7TG");
 /* harmony import */ var _signature_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./signature-modal-routing.module */ "YpIJ");
 /* harmony import */ var _signature_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./signature-modal.page */ "OJ+J");
+/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular2-signaturepad */ "Zw0B");
+/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -32,7 +35,8 @@ SignatureModalPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-            _signature_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__["SignatureModalPageRoutingModule"]
+            _signature_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__["SignatureModalPageRoutingModule"],
+            angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7__["SignaturePadModule"]
         ],
         declarations: [_signature_modal_page__WEBPACK_IMPORTED_MODULE_6__["SignatureModalPage"]]
     })

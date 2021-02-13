@@ -10,42 +10,43 @@
 <ion-content [fullscreen]="true">
   <!-- <div id="container">
   </div> -->
+
   <ion-grid class="bg-color" fixed>
 
     <ion-list lines="full" class="form-list">
       <ion-item>
-        <ion-input placeholder="Name"></ion-input>
+        <ion-input [(ngModel)]="name" type="text" placeholder="Name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Email Address"></ion-input>
+        <ion-input [(ngModel)]="email" type="email" placeholder="Email Address"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Contact Number"></ion-input>
+        <ion-input [(ngModel)]="contact" type="tel" placeholder="Contact Number"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Product Brand"></ion-input>
+        <ion-input [(ngModel)]="brand" type="text" placeholder="Product Brand"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Product Model"></ion-input>
+        <ion-input [(ngModel)]="model" type="text" placeholder="Product Model"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Product Serial Number"></ion-input>
+        <ion-input [(ngModel)]="serial_no" type="text" placeholder="Product Serial Number"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Product IMEI Number"></ion-input>
+        <ion-input [(ngModel)]="imei" type="tel" placeholder="Product IMEI Number"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-col>
-          B01*
+          {{clooneprovider.branchCode}}*
         </ion-col>
-        <ion-select value="CSO/SSO" interface="popover">
+        <ion-select [(ngModel)]="docType" value="CSO/SSO" interface="popover">
           <ion-select-option value="CSO/SSO" disabled>CSO/SSO</ion-select-option>
           <ion-select-option value="CSO">CSO</ion-select-option>
           <ion-select-option value="SSO">SSO</ion-select-option>
         </ion-select>
         <ion-col>
-          <ion-input style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input>
+          <ion-input [(ngModel)]="son" type="tel" style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input>
         </ion-col>
       </ion-item>
     </ion-list>
@@ -476,10 +477,11 @@
     </ion-list>
 
     <div class="ion-text-center">
-      <ion-button color="light" style="color: black; text-align: center;" (click)="onClick()" >
+      <ion-button color="light" style="color: black; text-align: center;" (click)="submitForm()" >
         SUBMIT
       </ion-button>
     </div>
     
   </ion-grid>
+
 </ion-content>

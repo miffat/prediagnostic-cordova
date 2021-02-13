@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -8,9 +8,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Camera } from '@ionic-native/camera/ngx';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
@@ -18,10 +22,16 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     IonicModule.forRoot(), 
     AppRoutingModule,
     SignaturePadModule,
+    IonicStorageModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     Camera,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AppVersion,
+    ScreenOrientation,
   ],
   bootstrap: [AppComponent],
 })

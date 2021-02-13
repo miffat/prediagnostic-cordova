@@ -3,9 +3,9 @@ import { AlertController, MenuController, ModalController } from '@ionic/angular
 import { ActivatedRoute } from '@angular/router';
 import { TncModalPage } from "../tnc-modal/tnc-modal.page";
 import { SignatureModalPage } from "../signature-modal/signature-modal.page";
-// import { PhotoService } from '../../services/photo.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ClooneproviderService } from '../../services/clooneprovider.service';
 
 @Component({
   selector: 'app-home',
@@ -22,13 +22,24 @@ export class HomePage implements OnInit {
   public leftImage: any = '';
   public extraImage = [];
 
+  public name: any = '';
+  public email: any = '';
+  public contact: any = '';
+  public brand: any = '';
+  public model: any = '';
+  public serial_no: any = '';
+  public imei: any = '';
+  public docType: any;
+  public son: any = '';
+
   constructor(
       private domSanitizer: DomSanitizer,
       private activatedRoute: ActivatedRoute,
       public menuCtrl: MenuController,
       public modalCtrl: ModalController,
       private camera: Camera,
-      public alertCtrl: AlertController
+      public alertCtrl: AlertController,
+      private clooneprovider: ClooneproviderService
     ) { }
 
   ngOnInit() {
@@ -60,6 +71,11 @@ export class HomePage implements OnInit {
 
 		await alert.present();
 	}
+
+  submitForm(){
+    console.log(this.docType)
+  }
+
 
   imageFunction(option, side){
     // CHECK EXTRA IMAGES NOT MORE THAN 3
