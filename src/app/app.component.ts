@@ -58,16 +58,13 @@ export class AppComponent {
 
       this.authenticationService.authenticationState.subscribe(state => {
         console.log("status=", state);
+
         this.router.navigate(['home']);
 
         // if (state) {
         //   this.router.navigate(['home']);
-        //   // this.Is_NotloginPage = true;
-        //   // this.menuCtrl.enable(true);
         // } else {
         //   this.router.navigate(['login']);
-        //   // this.Is_NotloginPage = false;
-        //   // this.menuCtrl.enable(false);
         // }
 
       });

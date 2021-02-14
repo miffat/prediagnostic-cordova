@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { ClooneproviderService } from '../../services/clooneprovider.service';
+import { decode } from 'querystring';
 
 @Component({
   selector: 'app-login',

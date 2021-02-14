@@ -37,6 +37,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let HomePageModule = class HomePageModule {
 };
 HomePageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
@@ -45,7 +46,8 @@ HomePageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-            _home_routing_module__WEBPACK_IMPORTED_MODULE_5__["HomePageRoutingModule"]
+            _home_routing_module__WEBPACK_IMPORTED_MODULE_5__["HomePageRoutingModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"]
         ],
         declarations: [_home_page__WEBPACK_IMPORTED_MODULE_6__["HomePage"]]
     })
@@ -101,7 +103,7 @@ HomePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"ion-no-padding\">Pre-Diagnostic Declaration</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <!-- <div id=\"container\">\n  </div> -->\n  <ion-grid class=\"bg-color\" fixed>\n\n    <ion-list lines=\"full\" class=\"form-list\">\n      <ion-item>\n        <ion-input placeholder=\"Name\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input placeholder=\"Email Address\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input placeholder=\"Contact Number\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input placeholder=\"Product Brand\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input placeholder=\"Product Model\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input placeholder=\"Product Serial Number\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input placeholder=\"Product IMEI Number\"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-col>\n          B01*\n        </ion-col>\n        <ion-select value=\"CSO/SSO\" interface=\"popover\">\n          <ion-select-option value=\"CSO/SSO\" disabled>CSO/SSO</ion-select-option>\n          <ion-select-option value=\"CSO\">CSO</ion-select-option>\n          <ion-select-option value=\"SSO\">SSO</ion-select-option>\n        </ion-select>\n        <ion-col>\n          <ion-input style=\"text-align: right;\" maxlength=\"5\" placeholder=\"eg: 12345\"></ion-input>\n        </ion-col>\n      </ion-item>\n    </ion-list>\n    \n    <ion-list lines=\"full\" class=\"form-list\">\n\n      <ion-item>\n        <!-- TO WORDWRAP LONG STRING: class=\"ion-text-wrap\" -->\n        <ion-label class=\"ion-text-wrap\">Can Switch On<br><p>Does the device able to switch on?</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Battery Charging Condition<br><p>Does the device’s battery and charger is in working condition?</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">SIM Card<br><p>Does SIM card and Memory card been removed from the device?</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">OS ID<br><p>Does the device signed out from its OS ID? Example, Apple ID and Samsung ID</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Factory Mode<br><p>In the event of diagnostic/repair, does customer agree that the device may set to factory mode?</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Accessories<br><p>Is there any accessories attached?</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">External Damage<br><p>Are there any sign of scratches, dented, or damages cause by external force?</p></ion-label>\n        <ion-select value=\"false\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Security<br><p>Does the device secured with password or pattern lock?</p></ion-label>\n        <ion-select  interface=\"action-sheet\" [(ngModel)]=\"lock\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item *ngIf=\"lock == 'true' \">\n        <ion-label class=\"ion-text-wrap\">Lock Type<br></ion-label>\n        <ion-select  interface=\"action-sheet\" [(ngModel)]=\"lockType\">\n          <ion-select-option value=\"1\">Pattern</ion-select-option>\n          <ion-select-option value=\"2\" >Password</ion-select-option>\n          <ion-select-option value=\"3\" >Both</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item *ngIf=\"lockType == '1' \">\n        <div class=\"container\">\n          <h1>pattern-lock-js</h1>\n          <iframe class=\"stars\" src=\"https://ghbtns.com/github-btn.html?user=tympanix&repo=pattern-lock-js&type=star&count=true&size=large\" frameborder=\"0\" scrolling=\"0\" width=\"160px\" height=\"30px\"></iframe>\n          <svg class=\"patternlock\" id=\"lock\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\">\n              <g class=\"lock-actives\"></g>\n              <g class=\"lock-lines\"></g>\n              <g class=\"lock-dots\">\n                  <circle cx=\"20\" cy=\"20\" r=\"2\"/>\n                  <circle cx=\"50\" cy=\"20\" r=\"2\"/>\n                  <circle cx=\"80\" cy=\"20\" r=\"2\"/>\n  \n                  <circle cx=\"20\" cy=\"50\" r=\"2\"/>\n                  <circle cx=\"50\" cy=\"50\" r=\"2\"/>\n                  <circle cx=\"80\" cy=\"50\" r=\"2\"/>\n  \n                  <circle cx=\"20\" cy=\"80\" r=\"2\"/>\n                  <circle cx=\"50\" cy=\"80\" r=\"2\"/>\n                  <circle cx=\"80\" cy=\"80\" r=\"2\"/>\n              </g>\n            </svg>\n        </div>\n      </ion-item>\n      <ion-item *ngIf=\"lockType == '2' \">\n        <ion-input placeholder=\"Password\"></ion-input>\n      </ion-item>\n      <ion-item *ngIf=\"lockType == '3' \">\n        <div id=\"lock\"></div>\n      </ion-item>\n\n      <!-- TOP IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"topImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Top View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"topImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{topImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','top')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','top')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF TOP IMAGE -->\n\n      <!-- BOTTOM IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"bottomImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Bottom View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"bottomImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{bottomImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','bottom')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','bottom')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF BOTTOM IMAGE -->\n\n      <!-- FRONT IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"frontImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Front View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"frontImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{frontImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','front')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','front')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF FRONT IMAGE -->\n\n      <!-- BACK VIEW IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"backImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Back View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"backImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{backImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','back')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','back')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF BACK VIEW IMAGE -->\n\n      <!-- SIDE TOP RIGHT IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"rightImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Side Top Right View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"rightImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{rightImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','right')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','right')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF SIDE TOP RIGHT IMAGE -->\n\n      <!-- SIDE BOTTOM LEFT IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"leftImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Side Bottom Left View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"leftImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{leftImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','left')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','left')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF SIDE BOTTOM LEFT IMAGE -->\n\n      <!-- ADDITIONAL IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"extraImage == '' \">\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Upload Additional Image</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"extraImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\"\n            *ngFor=\"let extra of extraImage; let i=index\" >\n              <img src=\"{{extra}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','extra')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','extra')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF ADDITIONAL IMAGE -->\n\n\n        <div class=\"ion-text-center signature\">\n          <ion-row>\n            <ion-col>\n              <ion-label >Signature</ion-label>  \n            </ion-col>\n          </ion-row>\n          <ion-row >\n            <ion-col >\n              <ion-button color=\"danger\" size=\"small\" (click)=\"openSignatureModal()\" fill=\"outline\">\n                Open Signature Pad\n              </ion-button>\n            </ion-col>\n          </ion-row>\n          \n        </div>\n\n        <div class=\"ion-text-center\">\n            <ion-button size=\"small\" (click)=\"opentTnc()\" expand=\"block\" fill=\"clear\" >\n              I agree to the Terms & Conditions\n            </ion-button>\n        </div>\n        \n        \n\n\n      \n\n    </ion-list>\n\n    <div class=\"ion-text-center\">\n      <ion-button color=\"light\" style=\"color: black; text-align: center;\" (click)=\"onClick()\" >\n        SUBMIT\n      </ion-button>\n    </div>\n    \n  </ion-grid>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"ion-no-padding\">Pre-Diagnostic Declaration</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <!-- <div id=\"container\">\n  </div> -->\n\n  <ion-grid class=\"bg-color\" fixed>\n\n    <ion-list lines=\"full\" class=\"form-list\">\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.name\" type=\"text\" placeholder=\"Name\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.email\" type=\"email\" placeholder=\"Email Address\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.contact\" type=\"tel\" placeholder=\"Contact Number\" maxlength=\"12\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.brand\" type=\"text\" placeholder=\"Product Brand\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.model\" type=\"text\" placeholder=\"Product Model\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.sn\" type=\"text\" placeholder=\"Product Serial Number\"></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-input [(ngModel)]=\"formData.imei\" type=\"tel\" placeholder=\"Product IMEI Number\"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-col>\n          {{clooneprovider.branchCode}}*\n        </ion-col>\n        <ion-select [(ngModel)]=\"formData.docType\" value=\"\" interface=\"popover\">\n          <ion-select-option value=\"CSO/SSO\" disabled>CSO/SSO</ion-select-option>\n          <ion-select-option value=\"CSO\">CSO</ion-select-option>\n          <ion-select-option value=\"SSO\">SSO</ion-select-option>\n        </ion-select>\n        <ion-col>\n          <ion-input [(ngModel)]=\"formData.son\" type=\"tel\" style=\"text-align: right;\" maxlength=\"5\" placeholder=\"eg: 12345\"></ion-input>\n        </ion-col>\n      </ion-item>\n    </ion-list>\n    \n    <ion-list lines=\"full\" class=\"form-list\">\n\n      <ion-item>\n        <!-- TO WORDWRAP LONG STRING: class=\"ion-text-wrap\" -->\n        <ion-label class=\"ion-text-wrap\">Can Switch On<br><p>Does the device able to switch on?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.switchon\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Battery Charging Condition<br><p>Does the device’s battery and charger is in working condition?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.battery\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">SIM Card<br><p>Does SIM card and Memory card been removed from the device?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.sim2\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">OS ID<br><p>Does the device signed out from its OS ID? Example, Apple ID and Samsung ID</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.sim\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Factory Mode<br><p>In the event of diagnostic/repair, does customer agree that the device may set to factory mode?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.factory\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Accessories<br><p>Is there any accessories attached?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.accessories\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">External Damage<br><p>Are there any sign of scratches, dented, or damages cause by external force?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.dent\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">Security<br><p>Does the device secured with password or pattern lock?</p></ion-label>\n        <ion-select [(ngModel)]=\"formData.lock\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"true\">Yes</ion-select-option>\n          <ion-select-option value=\"false\" >No</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item *ngIf=\"formData.lock == 'true' \">\n        <ion-label class=\"ion-text-wrap\">Lock Type<br></ion-label>\n        <ion-select [(ngModel)]=\"formData.lockType\" value=\"\" interface=\"action-sheet\">\n          <ion-select-option value=\"1\">Pattern</ion-select-option>\n          <ion-select-option value=\"2\" >Password</ion-select-option>\n          <ion-select-option value=\"3\" >Both</ion-select-option>\n        </ion-select>\n      </ion-item>\n      <ion-item *ngIf=\"formData.lockType == '1' \">\n        <div style=\"padding-left: 15px;\" class=\"container\">\n          <iframe class=\"stars\" src=\"\" frameborder=\"0\" scrolling=\"0\" width=\"\" height=\"0\"></iframe>\n          <svg class=\"patternlock\" id=\"lock\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\">\n              <g class=\"lock-actives\"></g>\n              <g class=\"lock-lines\"></g>\n              <g class=\"lock-dots\">\n                  <circle cx=\"20\" cy=\"20\" r=\"2\"/>\n                  <circle cx=\"50\" cy=\"20\" r=\"2\"/>\n                  <circle cx=\"80\" cy=\"20\" r=\"2\"/>\n  \n                  <circle cx=\"20\" cy=\"50\" r=\"2\"/>\n                  <circle cx=\"50\" cy=\"50\" r=\"2\"/>\n                  <circle cx=\"80\" cy=\"50\" r=\"2\"/>\n  \n                  <circle cx=\"20\" cy=\"80\" r=\"2\"/>\n                  <circle cx=\"50\" cy=\"80\" r=\"2\"/>\n                  <circle cx=\"80\" cy=\"80\" r=\"2\"/>\n              </g>\n            </svg>\n        </div>\n      </ion-item>\n      <ion-item *ngIf=\"formData.lockType == '2' \">\n        <ion-input [(ngModel)]=\"formData.password\" value=\"\" type=\"text\" placeholder=\"Password\"></ion-input>\n      </ion-item>\n\n      <div *ngIf=\"formData.lockType == '3' \">\n        <ion-item >\n          <div style=\"padding-left: 15px;\" class=\"container\">\n            <iframe class=\"stars\" src=\"\" frameborder=\"0\" scrolling=\"0\" width=\"\" height=\"0\"></iframe>\n            <svg class=\"patternlock\" id=\"lock\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\">\n                <g class=\"lock-actives\"></g>\n                <g class=\"lock-lines\"></g>\n                <g class=\"lock-dots\">\n                    <circle cx=\"20\" cy=\"20\" r=\"2\"/>\n                    <circle cx=\"50\" cy=\"20\" r=\"2\"/>\n                    <circle cx=\"80\" cy=\"20\" r=\"2\"/>\n    \n                    <circle cx=\"20\" cy=\"50\" r=\"2\"/>\n                    <circle cx=\"50\" cy=\"50\" r=\"2\"/>\n                    <circle cx=\"80\" cy=\"50\" r=\"2\"/>\n    \n                    <circle cx=\"20\" cy=\"80\" r=\"2\"/>\n                    <circle cx=\"50\" cy=\"80\" r=\"2\"/>\n                    <circle cx=\"80\" cy=\"80\" r=\"2\"/>\n                </g>\n              </svg>\n          </div>\n        </ion-item>\n\n        <ion-item>\n          <ion-input [(ngModel)]=\"formData.password\" value=\"\" type=\"text\" placeholder=\"Password\"></ion-input>\n        </ion-item>\n      </div>\n      \n\n      <!-- TOP IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"topImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Top View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"topImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{topImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','top')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','top')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF TOP IMAGE -->\n\n      <!-- BOTTOM IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"bottomImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Bottom View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"bottomImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{bottomImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','bottom')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','bottom')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF BOTTOM IMAGE -->\n\n      <!-- FRONT IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"frontImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Front View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"frontImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{frontImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','front')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','front')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF FRONT IMAGE -->\n\n      <!-- BACK VIEW IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"backImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Back View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"backImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{backImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','back')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','back')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF BACK VIEW IMAGE -->\n\n      <!-- SIDE TOP RIGHT IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"rightImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Side Top Right View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"rightImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{rightImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','right')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','right')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF SIDE TOP RIGHT IMAGE -->\n\n      <!-- SIDE BOTTOM LEFT IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"leftImage == '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <ion-icon name=\"albums\"></ion-icon>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Side Bottom Left View</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"leftImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\">\n              <img src=\"{{leftImage}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','left')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','left')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF SIDE BOTTOM LEFT IMAGE -->\n\n      <!-- ADDITIONAL IMAGE -->\n      <ion-card>\n        <div style=\"padding-bottom: 20px; padding-top: 20px;\" *ngIf=\"extraImage == '' \">\n          <ion-row>\n            <ion-col class=\"ion-text-center ion-no-padding\">\n              <ion-label>Upload Additional Image</ion-label>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div *ngIf=\"extraImage !== '' \">\n          <ion-row>\n            <ion-col style=\"font-size: 25px;\" class=\"ion-text-center ion-no-padding\"\n            *ngFor=\"let extra of extraImage; let i=index\" >\n              <img src=\"{{extra}}\">\n            </ion-col>\n          </ion-row>\n        </div>\n        \n        <ion-row>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('camera','extra')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"camera\"></ion-icon>                \n                <span>Camera</span>\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n          <ion-col style=\"background-color: #6B6867;\">\n            <ion-tab-button (click)=\"imageFunction('gallery','extra')\">\n              <ion-label style=\"color: white; font-size: 20px;\">\n                <ion-icon style=\"padding-right: 10px;\" name=\"images\"></ion-icon>\n                Gallery\n              </ion-label>\n            </ion-tab-button>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n      <!-- END OF ADDITIONAL IMAGE -->\n\n\n        <div class=\"ion-text-center signature\">\n          <ion-row>\n            <ion-col>\n              <ion-label >Signature</ion-label>  \n            </ion-col>\n          </ion-row>\n          <ion-row >\n            <ion-col >\n              <ion-button color=\"danger\" size=\"small\" (click)=\"openSignatureModal()\" fill=\"outline\">\n                Open Signature Pad\n              </ion-button>\n            </ion-col>\n          </ion-row>\n          \n        </div>\n\n        <div class=\"ion-text-center\">\n            <ion-button size=\"small\" (click)=\"opentTnc()\" expand=\"block\" fill=\"clear\" >\n              I agree to the Terms & Conditions\n            </ion-button>\n        </div>\n        \n        \n\n\n      \n\n    </ion-list>\n\n    <div class=\"ion-text-center\">\n      <ion-button color=\"light\" style=\"color: black; text-align: center;\" (click)=\"submitForm()\" >\n        SUBMIT\n      </ion-button>\n    </div>\n    \n  </ion-grid>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -125,6 +127,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signature_modal_signature_modal_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../signature-modal/signature-modal.page */ "OJ+J");
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "a/9d");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser */ "jhN1");
+/* harmony import */ var _services_clooneprovider_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../services/clooneprovider.service */ "crRc");
+/* harmony import */ var _ionic_native_File_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/File/ngx */ "B7Vy");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/ionic-webview/ngx */ "eHpL");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic/storage */ "e8h1");
+/* harmony import */ var _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/file-path/ngx */ "G769");
 
 
 
@@ -133,17 +141,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import { PhotoService } from '../../services/photo.service';
 
 
+
+
+
+
+
+
+const STORAGE_KEY = 'my_images';
 let HomePage = class HomePage {
-    constructor(domSanitizer, activatedRoute, menuCtrl, modalCtrl, camera, alertCtrl) {
+    constructor(domSanitizer, activatedRoute, menuCtrl, modalCtrl, camera, alertCtrl, clooneprovider, file, http, webview, storage, filePath, ref) {
         this.domSanitizer = domSanitizer;
         this.activatedRoute = activatedRoute;
         this.menuCtrl = menuCtrl;
         this.modalCtrl = modalCtrl;
         this.camera = camera;
         this.alertCtrl = alertCtrl;
+        this.clooneprovider = clooneprovider;
+        this.file = file;
+        this.http = http;
+        this.webview = webview;
+        this.storage = storage;
+        this.filePath = filePath;
+        this.ref = ref;
+        // images = [];
+        this.formData = {};
         this.topImage = '';
         this.bottomImage = '';
         this.frontImage = '';
@@ -151,9 +174,29 @@ let HomePage = class HomePage {
         this.rightImage = '';
         this.leftImage = '';
         this.extraImage = [];
+        this.tempImageFront = '';
     }
     ngOnInit() {
         this.menuCtrl.enable(true);
+        this.formData.docType = 'CSO/SSO';
+        this.formData.switchon = 'false';
+        this.formData.battery = 'false';
+        this.formData.sim2 = 'false';
+        this.formData.sim = 'false';
+        this.formData.factory = 'false';
+        this.formData.accessories = 'false';
+        this.formData.dent = 'false';
+        this.formData.lock = 'false';
+        // this.formData.lockType = '';
+    }
+    pathForImage(img) {
+        if (img === null) {
+            return '';
+        }
+        else {
+            let converted = this.webview.convertFileSrc(img);
+            return converted;
+        }
     }
     alertMsg() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -181,6 +224,59 @@ let HomePage = class HomePage {
             yield alert.present();
         });
     }
+    submitForm() {
+        console.log(this.formData);
+        this.formData.imageFront = this.frontImage.substr(this.frontImage.lastIndexOf('/') + 1);
+        console.log('Front img ori:', this.frontImage);
+        console.log('Front img:', this.formData.imageFront);
+        if (this.formData.name == "" || this.formData.name == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Name is required');
+            return false;
+        }
+        else if (this.formData.email == "" || this.formData.email == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Email is required');
+            return false;
+        }
+        else if (this.formData.contact == "" || this.formData.contact == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Contact is required');
+            return false;
+        }
+        else if (this.formData.brand == "" || this.formData.brand == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Product Brand is required');
+            return false;
+        }
+        else if (this.formData.model == "" || this.formData.model == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Product Model is required');
+            return false;
+        }
+        else if (this.formData.sn == "" || this.formData.sn == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Product Serial Number is required');
+            return false;
+        }
+        else if (this.formData.imei == "" || this.formData.imei == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Product IMEI is required');
+            return false;
+        }
+        else if (this.formData.son == "" || this.formData.son == null) {
+            this.clooneprovider.showAlert('Missing Input!', 'Complete SON is required');
+            return false;
+        }
+        else if (this.formData.son.toString().length != 5) {
+            this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input 5 digits for CSO/SSO.');
+            return false;
+        }
+    }
+    getFileEntry(imagePath) {
+        window.resolveLocalFileSystemURL(imagePath, function success(fileEntry) {
+            // Do something with the FileEntry object, like write to it, upload it, etc.
+            // writeFile(fileEntry, imgUri);
+            // console.log("file entry: " + fileEntry);
+            // console.log("got file: " + fileEntry.fullPath);
+            // console.log("native url: " + fileEntry.nativeURL);
+            // this.topImage = fileEntry.nativeURL
+            // displayFileData(fileEntry.nativeURL, "Native URL");
+        });
+    }
     imageFunction(option, side) {
         // CHECK EXTRA IMAGES NOT MORE THAN 3
         if (this.extraImage.length == 3) {
@@ -190,39 +286,92 @@ let HomePage = class HomePage {
         else if (option == "camera") {
             const options = {
                 quality: 100,
-                destinationType: this.camera.DestinationType.DATA_URL,
+                destinationType: this.camera.DestinationType.FILE_URI,
                 encodingType: this.camera.EncodingType.JPEG,
                 mediaType: this.camera.MediaType.PICTURE,
                 correctOrientation: true,
                 sourceType: this.camera.PictureSourceType.CAMERA,
-                saveToPhotoAlbum: true,
+                saveToPhotoAlbum: false,
                 targetWidth: 300,
                 targetHeight: 300,
             };
             this.camera.getPicture(options).then((imageData) => {
                 let base64Image = 'data:image/jpeg;base64,' + imageData;
-                if (side == "top") {
-                    this.topImage = base64Image;
+                this.getFileEntry(imageData);
+                // this.filePath.resolveNativePath(imagePath).then(filePath => {
+                //   let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+                //   let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+                //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+                // });
+                onImageSuccess(imageData);
+                function onImageSuccess(fileURI) {
+                    createFileEntry(fileURI);
                 }
-                else if (side == "bottom") {
-                    this.bottomImage = base64Image;
+                function createFileEntry(fileURI) {
+                    window.resolveLocalFileSystemURL(fileURI, copyFile, fail1);
                 }
-                else if (side == "front") {
-                    this.frontImage = base64Image;
+                function copyFile(fileEntry) {
+                    var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+                    var newName = makeid() + name;
+                    window.resolveLocalFileSystemURL(this.file.dataDirectory, function (fileSystem2) {
+                        fileEntry.copyTo(fileSystem2, newName, onCopySuccess, fail);
+                    }, fail);
                 }
-                else if (side == "back") {
-                    this.backImage = base64Image;
+                function onCopySuccess(entry) {
+                    // CordovaExif.readData(entry.nativeURL, function(exifObject) {
+                    //   console.log(exifObject);
+                    // });
+                    console.log('entry: ', entry);
+                    var temp = entry.nativeURL;
+                    console.log('temp image: ', temp);
+                    // if (side == "front") {
+                    //   $scope.tempImageFront = entry.nativeURL
+                    // } else if (side == "back") {
+                    //   $scope.tempImageBack = entry.nativeURL
+                    // } else if (side == "left") {
+                    //   $scope.tempImageLeft = entry.nativeURL
+                    // } else if (side == "right") {
+                    //   $scope.tempImageRight = entry.nativeURL
+                    // } else if (side == "top") {
+                    //   $scope.tempImageTop = entry.nativeURL
+                    // } else if (side == "bottom") {
+                    //   $scope.tempImageBottom = entry.nativeURL
+                    // } else if (side == "extra") {
+                    //   $scope.extraImages.push(entry.nativeURL)
+                    // }
+                    //console.log(entry.nativeURL)
                 }
-                else if (side == "right") {
-                    this.rightImage = base64Image;
+                function fail1(error) {
+                    console.log("fail image first : " + error.code);
                 }
-                else if (side == "left") {
-                    this.leftImage = base64Image;
+                function fail(error) {
+                    console.log("fail image : " + error.code);
                 }
-                else if (side == "extra") {
-                    // need to do array, only 3 extra images allow
-                    this.extraImage.push(base64Image);
+                function makeid() {
+                    var text = "";
+                    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    for (var i = 0; i < 5; i++) {
+                        text += possible.charAt(Math.floor(Math.random() * possible.length));
+                    }
+                    return text;
                 }
+                // console.log('Image path: ',imageData)
+                // if(side == "top"){
+                //   this.topImage = base64Image;
+                // } else if(side == "bottom"){
+                //   this.bottomImage = base64Image;
+                // } else if(side == "front"){
+                //   this.frontImage = base64Image;
+                // } else if(side == "back"){
+                //   this.backImage = base64Image;
+                // } else if(side == "right"){
+                //   this.rightImage = base64Image;
+                // } else if(side == "left"){
+                //   this.leftImage = base64Image;
+                // } else if(side == "extra"){
+                //   // need to do array, only 3 extra images allow
+                //   this.extraImage.push(base64Image);
+                // }   
             }, (err) => {
                 // Handle error 
                 console.log('Camera error:', err);
@@ -312,6 +461,48 @@ let HomePage = class HomePage {
             });
         }
     }
+    // createFileName() {
+    //   var d = new Date(),
+    //       n = d.getTime(),
+    //       newFileName = n + ".jpg";
+    //       console.log('New filename: ', newFileName)
+    //   return newFileName;
+    // }
+    // copyFileToLocalDir(namePath, currentName, newFileName) {
+    //   // console.log(this.file.dataDirectory)
+    //   // console.log(namePath)
+    //   // console.log(currentName)
+    //   // console.log(newFileName)
+    //   this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
+    //       this.updateStoredImages(newFileName);
+    //       console.log('New image file name: ',newFileName)
+    //   }, error => {
+    //       // this.presentToast('Error while storing file.');
+    //       console.log('Failed copy file local dir: ', error)
+    //   });
+    // }
+    // updateStoredImages(name) {
+    //   this.storage.get(STORAGE_KEY).then(images => {
+    //       let arr = JSON.parse(images);
+    //       if (!arr) {
+    //           let newImages = [name];
+    //           this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
+    //       } else {
+    //           arr.push(name);
+    //           this.storage.set(STORAGE_KEY, JSON.stringify(arr));
+    //       }
+    //       let filePath = this.file.dataDirectory + name;
+    //       let resPath = this.pathForImage(filePath);
+    //       let newEntry = {
+    //           name: name,
+    //           path: resPath,
+    //           filePath: filePath
+    //       };
+    //       this.topImage = newEntry
+    //       this.ref.detectChanges(); // trigger change detection cycle
+    //       console.log('updated storage:', this.topImage)
+    //   });
+    // }
     openCamera() {
         const options = {
             quality: 100,
@@ -377,7 +568,14 @@ HomePage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
     { type: _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_8__["Camera"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
+    { type: _services_clooneprovider_service__WEBPACK_IMPORTED_MODULE_10__["ClooneproviderService"] },
+    { type: _ionic_native_File_ngx__WEBPACK_IMPORTED_MODULE_11__["File"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClient"] },
+    { type: _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_13__["WebView"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_14__["Storage"] },
+    { type: _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_15__["FilePath"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] }
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

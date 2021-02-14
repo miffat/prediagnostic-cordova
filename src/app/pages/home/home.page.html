@@ -15,38 +15,38 @@
 
     <ion-list lines="full" class="form-list">
       <ion-item>
-        <ion-input [(ngModel)]="name" type="text" placeholder="Name"></ion-input>
+        <ion-input [(ngModel)]="formData.name" type="text" placeholder="Name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="email" type="email" placeholder="Email Address"></ion-input>
+        <ion-input [(ngModel)]="formData.email" type="email" placeholder="Email Address"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="contact" type="tel" placeholder="Contact Number"></ion-input>
+        <ion-input [(ngModel)]="formData.contact" type="tel" placeholder="Contact Number" maxlength="12"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="brand" type="text" placeholder="Product Brand"></ion-input>
+        <ion-input [(ngModel)]="formData.brand" type="text" placeholder="Product Brand"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="model" type="text" placeholder="Product Model"></ion-input>
+        <ion-input [(ngModel)]="formData.model" type="text" placeholder="Product Model"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="serial_no" type="text" placeholder="Product Serial Number"></ion-input>
+        <ion-input [(ngModel)]="formData.sn" type="text" placeholder="Product Serial Number"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="imei" type="tel" placeholder="Product IMEI Number"></ion-input>
+        <ion-input [(ngModel)]="formData.imei" type="tel" placeholder="Product IMEI Number"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-col>
           {{clooneprovider.branchCode}}*
         </ion-col>
-        <ion-select [(ngModel)]="docType" value="CSO/SSO" interface="popover">
+        <ion-select [(ngModel)]="formData.docType" value="" interface="popover">
           <ion-select-option value="CSO/SSO" disabled>CSO/SSO</ion-select-option>
           <ion-select-option value="CSO">CSO</ion-select-option>
           <ion-select-option value="SSO">SSO</ion-select-option>
         </ion-select>
         <ion-col>
-          <ion-input [(ngModel)]="son" type="tel" style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input>
+          <ion-input [(ngModel)]="formData.son" type="tel" style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input>
         </ion-col>
       </ion-item>
     </ion-list>
@@ -56,49 +56,49 @@
       <ion-item>
         <!-- TO WORDWRAP LONG STRING: class="ion-text-wrap" -->
         <ion-label class="ion-text-wrap">Can Switch On<br><p>Does the device able to switch on?</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.switchon" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">Battery Charging Condition<br><p>Does the device’s battery and charger is in working condition?</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.battery" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">SIM Card<br><p>Does SIM card and Memory card been removed from the device?</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.sim2" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">OS ID<br><p>Does the device signed out from its OS ID? Example, Apple ID and Samsung ID</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.sim" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">Factory Mode<br><p>In the event of diagnostic/repair, does customer agree that the device may set to factory mode?</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.factory" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">Accessories<br><p>Is there any accessories attached?</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.accessories" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">External Damage<br><p>Are there any sign of scratches, dented, or damages cause by external force?</p></ion-label>
-        <ion-select value="false" interface="action-sheet">
+        <ion-select [(ngModel)]="formData.dent" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
@@ -106,23 +106,22 @@
 
       <ion-item>
         <ion-label class="ion-text-wrap">Security<br><p>Does the device secured with password or pattern lock?</p></ion-label>
-        <ion-select  interface="action-sheet" [(ngModel)]="lock">
+        <ion-select [(ngModel)]="formData.lock" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="lock == 'true' ">
+      <ion-item *ngIf="formData.lock == 'true' ">
         <ion-label class="ion-text-wrap">Lock Type<br></ion-label>
-        <ion-select  interface="action-sheet" [(ngModel)]="lockType">
+        <ion-select [(ngModel)]="formData.lockType" value="" interface="action-sheet">
           <ion-select-option value="1">Pattern</ion-select-option>
           <ion-select-option value="2" >Password</ion-select-option>
           <ion-select-option value="3" >Both</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="lockType == '1' ">
-        <div class="container">
-          <h1>pattern-lock-js</h1>
-          <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=tympanix&repo=pattern-lock-js&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+      <ion-item *ngIf="formData.lockType == '1' ">
+        <div style="padding-left: 15px;" class="container">
+          <iframe class="stars" src="" frameborder="0" scrolling="0" width="" height="0"></iframe>
           <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <g class="lock-actives"></g>
               <g class="lock-lines"></g>
@@ -142,12 +141,39 @@
             </svg>
         </div>
       </ion-item>
-      <ion-item *ngIf="lockType == '2' ">
-        <ion-input placeholder="Password"></ion-input>
+      <ion-item *ngIf="formData.lockType == '2' ">
+        <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
       </ion-item>
-      <ion-item *ngIf="lockType == '3' ">
-        <div id="lock"></div>
-      </ion-item>
+
+      <div *ngIf="formData.lockType == '3' ">
+        <ion-item >
+          <div style="padding-left: 15px;" class="container">
+            <iframe class="stars" src="" frameborder="0" scrolling="0" width="" height="0"></iframe>
+            <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="lock-actives"></g>
+                <g class="lock-lines"></g>
+                <g class="lock-dots">
+                    <circle cx="20" cy="20" r="2"/>
+                    <circle cx="50" cy="20" r="2"/>
+                    <circle cx="80" cy="20" r="2"/>
+    
+                    <circle cx="20" cy="50" r="2"/>
+                    <circle cx="50" cy="50" r="2"/>
+                    <circle cx="80" cy="50" r="2"/>
+    
+                    <circle cx="20" cy="80" r="2"/>
+                    <circle cx="50" cy="80" r="2"/>
+                    <circle cx="80" cy="80" r="2"/>
+                </g>
+              </svg>
+          </div>
+        </ion-item>
+
+        <ion-item>
+          <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
+        </ion-item>
+      </div>
+      
 
       <!-- TOP IMAGE -->
       <ion-card>

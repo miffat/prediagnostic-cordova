@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AlertController, MenuController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TncModalPage } from "../tnc-modal/tnc-modal.page";
@@ -7,12 +7,26 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ClooneproviderService } from '../../services/clooneprovider.service';
 
+import { File, FileEntry } from '@ionic-native/File/ngx';
+import { HttpClient } from '@angular/common/http';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { Storage } from '@ionic/storage';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { finalize } from 'rxjs/operators';
+
+const STORAGE_KEY = 'my_images';
+declare let window: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  // images = [];
+
+  public formData: any = {}
 
   public topImage: any = '';
   public bottomImage: any = '';
@@ -22,15 +36,7 @@ export class HomePage implements OnInit {
   public leftImage: any = '';
   public extraImage = [];
 
-  public name: any = '';
-  public email: any = '';
-  public contact: any = '';
-  public brand: any = '';
-  public model: any = '';
-  public serial_no: any = '';
-  public imei: any = '';
-  public docType: any;
-  public son: any = '';
+  public tempImageFront = '';
 
   constructor(
       private domSanitizer: DomSanitizer,
@@ -39,11 +45,37 @@ export class HomePage implements OnInit {
       public modalCtrl: ModalController,
       private camera: Camera,
       public alertCtrl: AlertController,
-      private clooneprovider: ClooneproviderService
+      private clooneprovider: ClooneproviderService,
+      public file: File, 
+      private http: HttpClient, 
+      private webview: WebView,
+      private storage: Storage,
+      public filePath: FilePath,
+      private ref: ChangeDetectorRef,
     ) { }
 
   ngOnInit() {
     this.menuCtrl.enable(true);
+
+    this.formData.docType = 'CSO/SSO';
+    this.formData.switchon = 'false';
+    this.formData.battery = 'false';
+    this.formData.sim2 = 'false';
+    this.formData.sim = 'false';
+    this.formData.factory = 'false';
+    this.formData.accessories = 'false';
+    this.formData.dent = 'false';
+    this.formData.lock = 'false';
+    // this.formData.lockType = '';
+  }
+
+  pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      let converted = this.webview.convertFileSrc(img);
+      return converted;
+    }
   }
 
   async alertMsg() {
@@ -73,9 +105,42 @@ export class HomePage implements OnInit {
 	}
 
   submitForm(){
-    console.log(this.docType)
-  }
+    console.log(this.formData)
 
+    this.formData.imageFront = this.frontImage.substr(this.frontImage.lastIndexOf('/') + 1);
+    console.log('Front img ori:', this.frontImage)
+    console.log('Front img:', this.formData.imageFront)
+
+    if(this.formData.name == "" || this.formData.name == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Name is required');
+      return false
+    } else if(this.formData.email == "" || this.formData.email == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Email is required');
+      return false
+    } else if(this.formData.contact == "" || this.formData.contact == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Contact is required');
+      return false
+    } else if(this.formData.brand == "" || this.formData.brand == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Product Brand is required');
+      return false
+    } else if(this.formData.model == "" || this.formData.model == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Product Model is required');
+      return false
+    } else if(this.formData.sn == "" || this.formData.sn == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Product Serial Number is required');
+      return false
+    } else if(this.formData.imei == "" || this.formData.imei == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Product IMEI is required');
+      return false
+    } else if(this.formData.son == "" || this.formData.son == null){
+      this.clooneprovider.showAlert('Missing Input!', 'Complete SON is required');
+      return false
+    } else if(this.formData.son.toString().length != 5){
+      this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input 5 digits for CSO/SSO.');
+      return false
+    } 
+
+  }
 
   imageFunction(option, side){
     // CHECK EXTRA IMAGES NOT MORE THAN 3
@@ -86,18 +151,20 @@ export class HomePage implements OnInit {
     } else if(option == "camera"){
       const options: CameraOptions = {
         quality: 100,
-        destinationType: this.camera.DestinationType.DATA_URL,
+        destinationType: this.camera.DestinationType.FILE_URI, //DATA_URL  FILE_URI
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
         correctOrientation: true,
         sourceType: this.camera.PictureSourceType.CAMERA,
-        saveToPhotoAlbum: true,
+        saveToPhotoAlbum: false,
         targetWidth: 300,
         targetHeight: 300,
       }
 
       this.camera.getPicture(options).then((imageData) => {
         let base64Image = 'data:image/jpeg;base64,' + imageData;
+
+        console.log('Image path: ',imageData)
 
         if(side == "top"){
           this.topImage = base64Image;

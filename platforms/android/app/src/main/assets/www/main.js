@@ -99,7 +99,8 @@ let AppComponent = class AppComponent {
                 else if (this.platform.is('android')) {
                     this.thisPlatform = 'android';
                 }
-                this.app_version = res;
+                // this.app_version = res;
+                this.clooneprovider.currentAppVersion = res;
                 console.log("from app component, app version: ", res);
                 this.versionCheck();
                 // this.storage.set(this.Clooneprovider.DWStorage.app_version,res);
@@ -107,16 +108,12 @@ let AppComponent = class AppComponent {
             this.screenOrientation.lock('portrait');
             this.authenticationService.authenticationState.subscribe(state => {
                 console.log("status=", state);
-                if (state) {
-                    this.router.navigate(['home']);
-                    // this.Is_NotloginPage = true;
-                    // this.menuCtrl.enable(true);
-                }
-                else {
-                    this.router.navigate(['login']);
-                    // this.Is_NotloginPage = false;
-                    // this.menuCtrl.enable(false);
-                }
+                this.router.navigate(['home']);
+                // if (state) {
+                //   this.router.navigate(['home']);
+                // } else {
+                //   this.router.navigate(['login']);
+                // }
             });
         });
     }
@@ -132,18 +129,18 @@ let AppComponent = class AppComponent {
         let postForm = {
             check_version: 'check_version',
             os: this.thisPlatform,
-            version: this.app_version,
+            version: this.clooneprovider.currentAppVersion,
         };
         console.log(postForm);
         this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
             let apiData = resp.json();
             console.log('Succes get data', apiData);
             if (apiData.success == 0) {
-            }
-            else {
+                this.clooneprovider.showAlert('Warning!', 'Network Error');
             }
         }, (error) => {
             console.log('Failed: ', error);
+            this.clooneprovider.showAlert(this.clooneprovider.unableConnectTitle, this.clooneprovider.unableConnectMsg);
         });
     }
 };
@@ -198,14 +195,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "c7TG");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "Sy1n");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "a/9d");
-/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! angular2-signaturepad */ "Zw0B");
-/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "uJRU");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "0QAI");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic/storage */ "e8h1");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/http */ "qlzE");
+/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular2-signaturepad */ "Zw0B");
+/* harmony import */ var angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "uJRU");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "0QAI");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/http */ "qlzE");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "e8h1");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "a/9d");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/ionic-webview/ngx */ "eHpL");
+/* harmony import */ var _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/file-path/ngx */ "G769");
+/* harmony import */ var _ionic_native_File_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/File/ngx */ "B7Vy");
+
+
+
+
 
 
 
@@ -230,17 +235,21 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
-            angular2_signaturepad__WEBPACK_IMPORTED_MODULE_8__["SignaturePadModule"],
-            _ionic_storage__WEBPACK_IMPORTED_MODULE_11__["IonicStorageModule"].forRoot(),
-            _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
-            _angular_http__WEBPACK_IMPORTED_MODULE_13__["HttpModule"]
+            angular2_signaturepad__WEBPACK_IMPORTED_MODULE_7__["SignaturePadModule"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_12__["IonicStorageModule"].forRoot(),
+            _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"],
+            _angular_http__WEBPACK_IMPORTED_MODULE_11__["HttpModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_14__["HttpClientModule"],
         ],
         providers: [
-            _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_7__["Camera"],
+            _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__["Camera"],
+            _ionic_native_File_ngx__WEBPACK_IMPORTED_MODULE_17__["File"],
+            _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_15__["WebView"],
+            _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_16__["FilePath"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
-            _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_9__["AppVersion"],
-            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__["ScreenOrientation"],
+            _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_8__["AppVersion"],
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_9__["ScreenOrientation"],
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
     })
@@ -274,6 +283,8 @@ let ClooneproviderService = class ClooneproviderService {
         this.invalidMsg = 'Invalid username/password';
         this.unableConnectTitle = 'Unable to connect to server';
         this.unableConnectMsg = 'Could not connect to server. Please try again later.';
+        this.currentAppVersion = '';
+        this.branchCode = '';
     }
     showAlert(title, text) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
