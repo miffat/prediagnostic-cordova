@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'tnc-modal',
     loadChildren: () => import('./pages/tnc-modal/tnc-modal.module').then( m => m.TncModalPageModule)
+  },
+  {
+    path: 'success',
+    loadChildren: () => import('./pages/success/success.module').then( m => m.SuccessPageModule)
+  },
+  {
+    path: 'test',
+    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
   }
 ];
 

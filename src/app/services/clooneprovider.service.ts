@@ -1,7 +1,7 @@
 import { Injectable, Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Router } from '@angular/router';
-import { MenuController, Platform, AlertController } from '@ionic/angular';
+import { MenuController, Platform, AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -17,9 +17,12 @@ export class ClooneproviderService {
   public unableConnectMsg = 'Could not connect to server. Please try again later.';
   public currentAppVersion = '';
   public branchCode = '';
+  public signature = '';
+  public tncAgree: boolean = false;
 
   constructor(
-    public alertCtrl: AlertController    
+    public alertCtrl: AlertController,
+    public loadingController: LoadingController,     
   ) { }
 
   async showAlert(title, text) {
@@ -27,6 +30,7 @@ export class ClooneproviderService {
       header: title,
       message: text,
       buttons: ['OK'],
+      cssClass: 'my-alert'
     });
     await alert.present();
     return alert;
@@ -37,4 +41,19 @@ export class ClooneproviderService {
       return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
     }).join('&');
   }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      spinner: "crescent",
+      message: 'Please wait...'
+    });
+    
+    await loading.present();
+    return loading;
+  }
+
+  async dismissLoading() {
+    this.loadingController.dismiss();
+  }
+
 }

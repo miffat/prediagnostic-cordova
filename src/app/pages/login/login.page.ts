@@ -29,6 +29,8 @@ export class LoginPage implements OnInit {
     ]
   }
 
+  subscribe:any;
+
   constructor(
     public router: Router,
     public menuCtrl: MenuController,
@@ -37,12 +39,20 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     private http: Http,
     public storage: Storage,
-    private clooneprovider: ClooneproviderService
+    private clooneprovider: ClooneproviderService,
   ) {
     this.loginform = this.formBuilder.group({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
+
+    // this.subscribe = this.platform.backButton.subscribeWithPriority(1,()=>{
+
+    //     if(window.confirm("Do you want to exit app")) {
+    //       navigator["app"].exitApp();
+
+    //   }
+    // })
   }
 
   ngOnInit() {

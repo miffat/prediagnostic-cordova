@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-// import { SignaturePad } from 'ngx-signaturepad/signature-pad';
+import { ClooneproviderService } from '../../services/clooneprovider.service';
 
 @Component({
   selector: 'app-signature-modal',
@@ -17,25 +17,22 @@ export class SignatureModalPage implements OnInit {
     'canvasWidth': 400,
     'canvasHeight': 200,
     'backgroundColor': 'white',
-
   };
 
   sign: any;
   
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private clooneprovider: ClooneproviderService,
   ) { }
 
   ngOnInit() {
   }
 
-  
-
   drawComplete() {
     // will be notified of szimek/signature_pad's onEnd event
     this.sign = this.signaturePad.toDataURL();
-    console.log(this.sign);
   }
 
   drawStart() {
@@ -53,5 +50,11 @@ export class SignatureModalPage implements OnInit {
     this.modalCtrl.dismiss({
       'dismissed': true
     });
+  }
+
+  saveSign(){
+    this.clooneprovider.signature = this.sign
+    console.log('Saved sign: ',this.clooneprovider.signature);
+    this.dismiss()
   }
 }

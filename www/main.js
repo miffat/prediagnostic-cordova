@@ -61,6 +61,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "0QAI");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/authentication.service */ "ej43");
 /* harmony import */ var _services_clooneprovider_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/clooneprovider.service */ "crRc");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "ofXK");
+
 
 
 
@@ -73,7 +75,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, router, appVersion, screenOrientation, authenticationService, clooneprovider, http) {
+    constructor(platform, router, appVersion, screenOrientation, authenticationService, clooneprovider, http, _location, alertController) {
         this.platform = platform;
         this.router = router;
         this.appVersion = appVersion;
@@ -81,6 +83,8 @@ let AppComponent = class AppComponent {
         this.authenticationService = authenticationService;
         this.clooneprovider = clooneprovider;
         this.http = http;
+        this._location = _location;
+        this.alertController = alertController;
         this.appPages = [
             { title: 'Pre-Diagnostic Declaration', url: '/home' },
             { title: 'Submitted Form', url: '/submitted' },
@@ -108,13 +112,52 @@ let AppComponent = class AppComponent {
             this.screenOrientation.lock('portrait');
             this.authenticationService.authenticationState.subscribe(state => {
                 console.log("status=", state);
-                this.router.navigate(['home']);
-                // if (state) {
-                //   this.router.navigate(['home']);
-                // } else {
-                //   this.router.navigate(['login']);
-                // }
+                // this.router.navigate(['home']);
+                if (state) {
+                    this.router.navigate(['home']);
+                }
+                else {
+                    this.router.navigate(['login']);
+                }
             });
+        });
+        this.platform.backButton.subscribeWithPriority(10, () => {
+            console.log('Back press handler!');
+            if (this._location.isCurrentPathEqualTo('/login')) {
+                // Show Exit Alert!
+                console.log('Show Exit Alert!');
+                this.showExitConfirm();
+            }
+            else {
+                this.platform.backButton.subscribeWithPriority(1, () => {
+                    // to disable hardware back button on whole app
+                });
+                // Navigate to back page
+                // console.log('Navigate to back page');
+                // this._location.back();
+            }
+        });
+    }
+    showExitConfirm() {
+        this.alertController.create({
+            header: 'App termination',
+            message: 'Do you want to close the app?',
+            backdropDismiss: false,
+            buttons: [{
+                    text: 'Stay',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Application exit prevented!');
+                    }
+                }, {
+                    text: 'Exit',
+                    handler: () => {
+                        navigator['app'].exitApp();
+                    }
+                }]
+        })
+            .then(alert => {
+            alert.present();
         });
     }
     logout() {
@@ -151,7 +194,9 @@ AppComponent.ctorParameters = () => [
     { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"] },
     { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_9__["AuthenticationService"] },
     { type: _services_clooneprovider_service__WEBPACK_IMPORTED_MODULE_10__["ClooneproviderService"] },
-    { type: _angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"] }
+    { type: _angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"] },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_11__["Location"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -207,6 +252,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_ionic_webview_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/ionic-webview/ngx */ "eHpL");
 /* harmony import */ var _ionic_native_file_path_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/file-path/ngx */ "G769");
 /* harmony import */ var _ionic_native_File_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/File/ngx */ "B7Vy");
+/* harmony import */ var _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/base64/ngx */ "0PQT");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common */ "ofXK");
+
+
 
 
 
@@ -250,6 +299,8 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
             _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_8__["AppVersion"],
             _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_9__["ScreenOrientation"],
+            _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_18__["Base64"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_19__["DatePipe"],
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
     })
@@ -276,8 +327,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ClooneproviderService = class ClooneproviderService {
-    constructor(alertCtrl) {
+    constructor(alertCtrl, loadingController) {
         this.alertCtrl = alertCtrl;
+        this.loadingController = loadingController;
         this.apiUrl = "http://eticket.senheng.com.my/sh_ebs/defectAPI.php";
         this.invalidTitle = 'Login Error';
         this.invalidMsg = 'Invalid username/password';
@@ -285,6 +337,8 @@ let ClooneproviderService = class ClooneproviderService {
         this.unableConnectMsg = 'Could not connect to server. Please try again later.';
         this.currentAppVersion = '';
         this.branchCode = '';
+        this.signature = '';
+        this.tncAgree = false;
     }
     showAlert(title, text) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -292,6 +346,7 @@ let ClooneproviderService = class ClooneproviderService {
                 header: title,
                 message: text,
                 buttons: ['OK'],
+                cssClass: 'my-alert'
             });
             yield alert.present();
             return alert;
@@ -302,9 +357,25 @@ let ClooneproviderService = class ClooneproviderService {
             return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
         }).join('&');
     }
+    showLoading() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                spinner: "crescent",
+                message: 'Please wait...'
+            });
+            yield loading.present();
+            return loading;
+        });
+    }
+    dismissLoading() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.loadingController.dismiss();
+        });
+    }
 };
 ClooneproviderService.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
 ];
 ClooneproviderService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -843,6 +914,14 @@ const routes = [
     {
         path: 'tnc-modal',
         loadChildren: () => Promise.all(/*! import() | pages-tnc-modal-tnc-modal-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-tnc-modal-tnc-modal-module")]).then(__webpack_require__.bind(null, /*! ./pages/tnc-modal/tnc-modal.module */ "iZ4L")).then(m => m.TncModalPageModule)
+    },
+    {
+        path: 'success',
+        loadChildren: () => __webpack_require__.e(/*! import() | pages-success-success-module */ "pages-success-success-module").then(__webpack_require__.bind(null, /*! ./pages/success/success.module */ "fGwd")).then(m => m.SuccessPageModule)
+    },
+    {
+        path: 'test',
+        loadChildren: () => __webpack_require__.e(/*! import() | pages-test-test-module */ "pages-test-test-module").then(__webpack_require__.bind(null, /*! ./pages/test/test.module */ "ezsy")).then(m => m.TestPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

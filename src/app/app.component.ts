@@ -2,10 +2,11 @@ import { Http, Headers } from '@angular/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { AuthenticationService } from './services/authentication.service';
 import { ClooneproviderService } from './services/clooneprovider.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,8 @@ export class AppComponent {
     private authenticationService: AuthenticationService,
     private clooneprovider: ClooneproviderService,
     private http: Http,
+    private _location: Location,
+    public alertController: AlertController
   ) {
     this.initializeApp();
   }
@@ -39,6 +42,7 @@ export class AppComponent {
 
   initializeApp() { 
     this.platform.ready().then(() => {
+      
       this.appVersion.getVersionNumber().then((res) => {
         if (this.platform.is('ios')) {
           this.thisPlatform = 'ios';
@@ -59,17 +63,61 @@ export class AppComponent {
       this.authenticationService.authenticationState.subscribe(state => {
         console.log("status=", state);
 
-        this.router.navigate(['home']);
+        // this.router.navigate(['home']);
 
-        // if (state) {
-        //   this.router.navigate(['home']);
-        // } else {
-        //   this.router.navigate(['login']);
-        // }
+        if (state) {
+          this.router.navigate(['home']);
+        } else {
+          this.router.navigate(['login']);
+        }
 
       });
 
     })
+
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      console.log('Back press handler!');
+      if (this._location.isCurrentPathEqualTo('/login')) {
+
+        // Show Exit Alert!
+        console.log('Show Exit Alert!');
+        this.showExitConfirm();
+      } else {
+        this.platform.backButton.subscribeWithPriority(1, () => { 
+          // to disable hardware back button on whole app
+        });
+        // Navigate to back page
+        // console.log('Navigate to back page');
+        // this._location.back();
+
+      }
+
+    });
+
+    
+  }
+  
+  showExitConfirm() {
+    this.alertController.create({
+      header: 'App termination',
+      message: 'Do you want to close the app?',
+      backdropDismiss: false,
+      buttons: [{
+        text: 'Stay',
+        role: 'cancel',
+        handler: () => {
+          console.log('Application exit prevented!');
+        }
+      }, {
+        text: 'Exit',
+        handler: () => {
+          navigator['app'].exitApp();
+        }
+      }]
+    })
+      .then(alert => {
+        alert.present();
+      });
   }
 
 

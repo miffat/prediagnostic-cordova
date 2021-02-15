@@ -96,6 +96,10 @@
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item *ngIf="formData.accessories == 'true' ">
+        <!-- <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input> -->
+        <ion-textarea [(ngModel)]="formData.accessories_details" placeholder="Accessories Details" rows='5'></ion-textarea>
+      </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap">External Damage<br><p>Are there any sign of scratches, dented, or damages cause by external force?</p></ion-label>
         <ion-select [(ngModel)]="formData.dent" value="" interface="action-sheet">
@@ -105,21 +109,23 @@
       </ion-item>
 
       <ion-item>
-        <ion-label class="ion-text-wrap">Security<br><p>Does the device secured with password or pattern lock?</p></ion-label>
+        <!-- <ion-label class="ion-text-wrap">Security<br><p>Does the device secured with password or pattern lock?</p></ion-label> -->
+        <ion-label class="ion-text-wrap">Security<br><p>Does the device secured with password?</p></ion-label>
         <ion-select [(ngModel)]="formData.lock" value="" interface="action-sheet">
           <ion-select-option value="true">Yes</ion-select-option>
           <ion-select-option value="false" >No</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item *ngIf="formData.lock == 'true' ">
-        <ion-label class="ion-text-wrap">Lock Type<br></ion-label>
+        <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
+        <!-- <ion-label class="ion-text-wrap">Lock Type<br></ion-label>
         <ion-select [(ngModel)]="formData.lockType" value="" interface="action-sheet">
           <ion-select-option value="1">Pattern</ion-select-option>
           <ion-select-option value="2" >Password</ion-select-option>
           <ion-select-option value="3" >Both</ion-select-option>
-        </ion-select>
+        </ion-select> -->
       </ion-item>
-      <ion-item *ngIf="formData.lockType == '1' ">
+      <!-- <ion-item *ngIf="formData.lockType == '1' ">
         <div style="padding-left: 15px;" class="container">
           <iframe class="stars" src="" frameborder="0" scrolling="0" width="" height="0"></iframe>
           <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -140,12 +146,12 @@
               </g>
             </svg>
         </div>
-      </ion-item>
-      <ion-item *ngIf="formData.lockType == '2' ">
+      </ion-item> -->
+      <!-- <ion-item *ngIf="formData.lockType == '2' ">
         <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
-      </ion-item>
+      </ion-item> -->
 
-      <div *ngIf="formData.lockType == '3' ">
+      <!-- <div *ngIf="formData.lockType == '3' ">
         <ion-item >
           <div style="padding-left: 15px;" class="container">
             <iframe class="stars" src="" frameborder="0" scrolling="0" width="" height="0"></iframe>
@@ -172,12 +178,12 @@
         <ion-item>
           <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
         </ion-item>
-      </div>
+      </div> -->
       
 
       <!-- TOP IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="topImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImageTop == '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
               <ion-icon name="albums"></ion-icon>
@@ -189,10 +195,10 @@
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="topImage !== '' ">
+        <div *ngIf="tempImageTop !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
-              <img src="{{topImage}}">
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{tempImageTop}}">
             </ion-col>
           </ion-row>
         </div>
@@ -220,7 +226,7 @@
 
       <!-- BOTTOM IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="bottomImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImageBottom == '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
               <ion-icon name="albums"></ion-icon>
@@ -232,10 +238,10 @@
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="bottomImage !== '' ">
+        <div *ngIf="tempImageBottom !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
-              <img src="{{bottomImage}}">
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{tempImageBottom}}">
             </ion-col>
           </ion-row>
         </div>
@@ -263,7 +269,7 @@
 
       <!-- FRONT IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="frontImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImageFront == '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
               <ion-icon name="albums"></ion-icon>
@@ -275,10 +281,10 @@
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="frontImage !== '' ">
+        <div *ngIf="tempImageFront !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
-              <img src="{{frontImage}}">
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{tempImageFront}}">
             </ion-col>
           </ion-row>
         </div>
@@ -306,7 +312,7 @@
 
       <!-- BACK VIEW IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="backImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImageBack == '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
               <ion-icon name="albums"></ion-icon>
@@ -318,10 +324,10 @@
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="backImage !== '' ">
+        <div *ngIf="tempImageBack !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
-              <img src="{{backImage}}">
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{tempImageBack}}">
             </ion-col>
           </ion-row>
         </div>
@@ -349,7 +355,7 @@
 
       <!-- SIDE TOP RIGHT IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="rightImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImageRight == '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
               <ion-icon name="albums"></ion-icon>
@@ -361,10 +367,10 @@
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="rightImage !== '' ">
+        <div *ngIf="tempImageRight !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
-              <img src="{{rightImage}}">
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{tempImageRight}}">
             </ion-col>
           </ion-row>
         </div>
@@ -392,7 +398,7 @@
 
       <!-- SIDE BOTTOM LEFT IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="leftImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempImageLeft == '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
               <ion-icon name="albums"></ion-icon>
@@ -404,10 +410,10 @@
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="leftImage !== '' ">
+        <div *ngIf="tempImageLeft !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding">
-              <img src="{{leftImage}}">
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{tempImageLeft}}">
             </ion-col>
           </ion-row>
         </div>
@@ -435,18 +441,18 @@
 
       <!-- ADDITIONAL IMAGE -->
       <ion-card>
-        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="extraImage == '' ">
+        <div style="padding-bottom: 20px; padding-top: 20px;" *ngIf="tempExtraImage == '' ">
           <ion-row>
             <ion-col class="ion-text-center ion-no-padding">
               <ion-label>Upload Additional Image</ion-label>
             </ion-col>
           </ion-row>
         </div>
-        <div *ngIf="extraImage !== '' ">
+        <div *ngIf="tempExtraImage !== '' ">
           <ion-row>
             <ion-col style="font-size: 25px;" class="ion-text-center ion-no-padding"
-            *ngFor="let extra of extraImage; let i=index" >
-              <img src="{{extra}}">
+            *ngFor="let extra of tempExtraImage; let i=index" >
+              <img style="max-height:200px; max-width: 200px; display: inline !important;" src="{{extra}}">
             </ion-col>
           </ion-row>
         </div>
@@ -481,16 +487,18 @@
           </ion-row>
           <ion-row >
             <ion-col >
-              <ion-button color="danger" size="small" (click)="openSignatureModal()" fill="outline">
+              <ion-button style="text-transform: none;" color="danger" size="small" (click)="openSignatureModal()" fill="outline">
                 Open Signature Pad
               </ion-button>
             </ion-col>
           </ion-row>
-          
+          <div *ngIf="sign !== '' ">
+            <img src="{{clooneprovider.signature}}" style="width: 300px !important; border: 1px solid !important;">
+          </div>
         </div>
 
         <div class="ion-text-center">
-            <ion-button size="small" (click)="opentTnc()" expand="block" fill="clear" >
+            <ion-button style="text-transform: none;" size="small" (click)="opentTnc()" expand="block" fill="clear" >
               I agree to the Terms & Conditions
             </ion-button>
         </div>

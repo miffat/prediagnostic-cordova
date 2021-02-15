@@ -57,8 +57,8 @@
     </ion-list>
 
     <ion-list lines="full" class="form-list">
-      <ion-item class="tncDetails">
-        <ion-checkbox slot="start" color="danger"></ion-checkbox>
+      <ion-item class="tncDetails" *ngFor="let item of list">
+        <ion-checkbox slot="start" color="danger" [(ngModel)]="item.isChecked" (click)="checkboxChange()"></ion-checkbox>
         <p style="padding-left: 12px;">I agree to the terms & conditions.</p>
       </ion-item>
     </ion-list>

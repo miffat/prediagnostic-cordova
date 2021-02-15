@@ -9,44 +9,47 @@
 
 <ion-content>
 
-  <ion-list lines="full" class="form-list">
-    <ion-item>
-      <ion-label class="label">Name</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label">Contact</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label">Email</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label">Brand</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label">Model</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label">CSO</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label">Submitted Date</ion-label>
-      <p class="detailItems">Name</p>
-    </ion-item>
-  </ion-list>
-
-  <ion-card>
-    <ion-card-header class="card-header">
-      <ion-card-subtitle class="card-subtitle">front</ion-card-subtitle>
-    </ion-card-header>
+  <div *ngFor="let item of datalist">
+    <ion-list lines="full" class="form-list" >
+      <ion-item>
+        <ion-label class="label">Name</ion-label>
+        <p class="detailItems">{{item.name}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Contact</ion-label>
+        <p class="detailItems">{{item.contact}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Email</ion-label>
+        <p class="detailItems">{{item.email}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Brand</ion-label>
+        <p class="detailItems">{{item.brand}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Model</ion-label>
+        <p class="detailItems">{{item.model}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">CSO</ion-label>
+        <p class="detailItems">{{item.son}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Submitted Date</ion-label>
+        <p class="detailItems">{{item.created}}</p>
+      </ion-item>
+    </ion-list>
   
-    <ion-card-content style="justify-content: center;">
-        <img class="photo" src="https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="">
-    </ion-card-content>
-  </ion-card>
+    <ion-card *ngFor="let i of item.img">
+      <ion-card-header class="card-header">
+        <ion-card-subtitle class="card-subtitle">{{i.type}}</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content style="justify-content: center;">
+          <img class="photo" src="http://eticket.senheng.com.my/sh_ebs/uploads/{{i.name}}" alt="">
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
 </ion-content>

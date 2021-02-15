@@ -26,5 +26,20 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .bg-color {
-    background-color: red;
+  background-color: red;
+  min-height: 100%;
+}
+
+.my-alert .alert-wrapper {
+  .alert-button-group {
+    justify-content: center;
+  }
+}
+
+.my-alert{
+    text-align: center;
+}
+
+.my-alert h2 {
+    text-align: center;
 }

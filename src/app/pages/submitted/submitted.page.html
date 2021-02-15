@@ -8,27 +8,40 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      pullingText="Pull to refresh"
+      refreshingSpinner="crescent"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   <!-- <ion-searchbar style="--cancel-button-color: black;" showCancelButton="always"></ion-searchbar> -->
-  <ion-grid class="bg-color" fixed>
-    <ion-list lines="full" class="form-list">
-      <ion-item (click)="openDetails()">
-        <img class="photo" src="https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="">
-        <div>
-          <h2 style="margin: 0;">Model</h2>
-          <p style="margin: 0;">code</p>
-          <p style="margin: 0;">date</p>
-        </div>
-      </ion-item>
-      <ion-item>
-        <img class="photo" src="https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="">
-        <div>
-          <h2 style="margin: 0;">Model</h2>
-          <p style="margin: 0;">code</p>
-          <p style="margin: 0;">date</p>
-        </div>
-      </ion-item>
-    </ion-list>
-  </ion-grid>
+    <ion-grid class="bg-color" fixed>
+      <ion-list lines="full" class="form-list">
+        <ion-item *ngFor="let item of arrlist" (click)="openDetails(item.id)">
+          <img class="photo" src="http://eticket.senheng.com.my/sh_ebs/uploads/{{item.img}}" alt="">
+          <div>
+            <h5 style="margin: 0;">{{item.brand}} {{item.model}}</h5>
+            <p class="item-details" >{{item.son}}</p>
+            <p class="item-details" >{{item.created}}</p>
+          </div>
+        </ion-item>
+        <!-- <ion-item>
+          <img class="photo" src="https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="">
+          <div>
+            <h2 style="margin: 0;">Model</h2>
+            <p style="margin: 0;">code</p>
+            <p style="margin: 0;">date</p>
+          </div>
+        </ion-item>
+        <ion-button style="width: 130px;" color="danger" (click)="loading()">
+          Loading
+          <ion-icon style="padding-left: 5px;" name="log-in"></ion-icon>
+        </ion-button> -->
+      </ion-list>
+    </ion-grid>
+  
   <!-- <div id="container">
     <ion-searchbar showCancelButton="always"></ion-searchbar>
     <strong class="capitalize">Submitted Form</strong>

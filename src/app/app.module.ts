@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/File/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +43,8 @@ import { File } from '@ionic-native/File/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AppVersion,
     ScreenOrientation,
+    Base64,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
