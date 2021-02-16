@@ -1352,5 +1352,8 @@ sub {
 .my-alert h2 {
   text-align: center;
 }
+.refresher-ios .refresher-pulling-icon, .refresher-ios .refresher-pulling-text, .refresher-ios .refresher-refreshing-icon, .refresher-ios .refresher-refreshing-text {
+  color: var(--ion-text-color, red);
+}
 
 /*# sourceMappingURL=styles.css.map*/

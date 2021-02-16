@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SubmittedPageRoutingModule } from './submitted-routing.module';
 
 import { SubmittedPage } from './submitted.page';
+import { SortPipe } from '../../pages/sort.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SubmittedPage } from './submitted.page';
     IonicModule,
     SubmittedPageRoutingModule
   ],
-  declarations: [SubmittedPage]
+  declarations: [SubmittedPage, SortPipe]
 })
 export class SubmittedPageModule {}

@@ -20,9 +20,10 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { DatePipe } from '@angular/common';
+import { SortPipe } from './pages/sort.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SortPipe],
   entryComponents: [],
   imports: [
     BrowserModule, 

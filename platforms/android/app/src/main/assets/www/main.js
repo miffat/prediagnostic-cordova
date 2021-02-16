@@ -12,6 +12,45 @@ module.exports = __webpack_require__(/*! /Users/apple/Documents/senheng_prediagn
 
 /***/ }),
 
+/***/ "3qmV":
+/*!************************************!*\
+  !*** ./src/app/pages/sort.pipe.ts ***!
+  \************************************/
+/*! exports provided: SortPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortPipe", function() { return SortPipe; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+
+let SortPipe = class SortPipe {
+    transform(array, args) {
+        return array.sort(function (a, b) {
+            if (a[args.property] < b[args.property]) {
+                return -1 * args.order;
+            }
+            else if (a[args.property] > b[args.property]) {
+                return 1 * args.order;
+            }
+            else {
+                return 0;
+            }
+        });
+    }
+};
+SortPipe = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({
+        name: 'sort'
+    })
+], SortPipe);
+
+
+
+/***/ }),
+
 /***/ "AytR":
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
@@ -254,6 +293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_File_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/File/ngx */ "B7Vy");
 /* harmony import */ var _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/base64/ngx */ "0PQT");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _pages_sort_pipe__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./pages/sort.pipe */ "3qmV");
+
 
 
 
@@ -278,7 +319,7 @@ let AppModule = class AppModule {
 };
 AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _pages_sort_pipe__WEBPACK_IMPORTED_MODULE_20__["SortPipe"]],
         entryComponents: [],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],

@@ -12,7 +12,13 @@ import { Http, Headers } from '@angular/http';
 export class SubmittedPage implements OnInit {
 
   arrlist = []
+  arrlistBackup = []
   isDataAvailable: boolean = false;
+
+  ascending: boolean = true
+  descending: boolean = true;
+  order: number;
+  column: string = 'created';
 
   constructor(
     public modalCtrl: ModalController,
@@ -24,14 +30,32 @@ export class SubmittedPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.platform.ready().then(() => {
-    //   this.initSubmitted
-    // });
     
   }
 
+  sortOldest(){
+    this.order = this.descending ? 1 : -1;
+  }
+
+  sortLatest(){
+    this.order = this.ascending ? -1 : 1;
+  }
+
+  // sortArr(){
+  //   this.arrlist.sort((obj1, obj2) => {
+  //     if (obj1.created > obj2.created) {
+  //         return 1;
+  //     }
+  
+  //     if (obj1.created < obj2.created) {
+  //         return -1;
+  //     }
+  
+  //     return 0;
+  //   });
+  // }
+
   ionViewWillEnter(){
-    console.log('first')
     this.initSubmitted();
     this.isDataAvailable = true
   }
@@ -50,6 +74,7 @@ export class SubmittedPage implements OnInit {
       let apiData           = resp.json();
 
       this.arrlist = apiData;
+      this.arrlistBackup = apiData;
       console.log('Succes get data', this.arrlist)
 
       loading.dismiss();
@@ -78,6 +103,7 @@ export class SubmittedPage implements OnInit {
     this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
       let apiData           = resp.json();
       this.arrlist = apiData;
+      this.arrlistBackup = apiData;
 
       loading.dismiss();
 
@@ -86,6 +112,26 @@ export class SubmittedPage implements OnInit {
       this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
     });
 
+  }
+
+  // SEARCH ITEMS
+  async filterList(evt) {
+    this.arrlist = this.arrlistBackup;
+    const searchTerm = evt.srcElement.value;
+  
+    if (!searchTerm) {
+      return;
+    }
+  
+    this.arrlist = this.arrlist.filter(currentItems => {
+      if (currentItems.brand && searchTerm) {
+        return (currentItems.brand.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 
+        || currentItems.model.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 
+        || currentItems.son.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 
+        || currentItems.created.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 
+        );
+      }
+    });
   }
 
   async openDetails(id) {
@@ -98,5 +144,7 @@ export class SubmittedPage implements OnInit {
     });
     return await modal.present();
   }
+
+
 
 }

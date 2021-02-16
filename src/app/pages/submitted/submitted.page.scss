@@ -38,3 +38,29 @@ ion-menu-button {
   color: #8c8c8c;
   font-size: 13px;
 }
+
+.footer-row {
+  background-color: #0C090A;
+  // margin-left: -5px;
+  // margin-right: -5px;
+  // margin-bottom: -5px;
+}
+
+.footer-left {
+  text-align: left;
+  color: red;
+  padding-left: 5px;
+}
+
+.footer-right {
+  text-align: right;
+  color: red;
+  padding-right: 5px;
+}
+
+.form-list {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
