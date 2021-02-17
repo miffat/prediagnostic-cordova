@@ -124,7 +124,7 @@
         </ion-select>
       </ion-item>
 
-      <div *ngIf="formData.lockType == '1' " class="ion-text-center">
+      <div *ngIf="formData.lockType == '1' && formData.lock == 'true' " class="ion-text-center">
         <ion-row>
           <ion-col>
             <ion-button style="text-transform: none;" color="danger" size="small" (click)="openPattern()" fill="outline">
@@ -134,11 +134,11 @@
         </ion-row>
       </div>
 
-      <ion-item *ngIf="formData.lockType == '2' ">
+      <ion-item *ngIf="formData.lockType == '2' && formData.lock == 'true' ">
         <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
       </ion-item>
 
-      <div *ngIf="formData.lockType == '3' ">
+      <div *ngIf="formData.lockType == '3' && formData.lock == 'true' ">
         <div class="ion-text-center">
           <ion-row>
             <ion-col>

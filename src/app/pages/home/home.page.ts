@@ -88,8 +88,11 @@ export class HomePage implements OnInit {
     this.formData.accessories = 'false';
     this.formData.dent = 'false';
     this.formData.lock = 'false';
+    this.formData.lockType = '';
     this.formData.accessories_details = '';
     this.formData.agree = 'false';
+    this.formData.password = '';
+    this.formData.pattern = '';
   }
 
   pathForImage(img) {
@@ -406,6 +409,26 @@ export class HomePage implements OnInit {
     } else if (this.formData.accessories == "true" && this.formData.accessories_details == "") {
       loading.dismiss();
       this.clooneprovider.showAlert('No Accessories Details!', 'Please insert accessories details!');
+      return false
+    } else if (this.formData.lock == "true" && this.formData.lockType == "") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('No Security Input!', 'Please choose lock type!');
+      return false
+    } else if (this.formData.lock == "true" && this.formData.lockType == "1" && this.formData.pattern == "") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('No Security Input!', 'Please insert the lock pattern!');
+      return false
+    } else if (this.formData.lock == "true" && this.formData.lockType == "2" && this.formData.password == "") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('No Security Input!', 'Please insert the lock password!');
+      return false
+    } else if (this.formData.lock == "true" && this.formData.lockType == "3" && this.formData.pattern == "") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('No Security Input!', 'Please insert the lock pattern and password!');
+      return false
+    } else if (this.formData.lock == "true" && this.formData.lockType == "3" && this.formData.password == "") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('No Security Input!', 'Please insert the lock pattern and password!');
       return false
     } else if (this.tempImageTop == "" || this.tempImageBottom == "" || this.tempImageFront == "" || this.tempImageBack == "" || this.tempImageRight == "" || this.tempImageLeft == "") {
       loading.dismiss();

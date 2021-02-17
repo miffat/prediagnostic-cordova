@@ -151,12 +151,13 @@ let AppComponent = class AppComponent {
             this.screenOrientation.lock('portrait');
             this.authenticationService.authenticationState.subscribe(state => {
                 console.log("status=", state);
-                this.router.navigate(['home']);
-                // if (state) {
-                //   this.router.navigate(['home']);
-                // } else {
-                //   this.router.navigate(['login']);
-                // }
+                // this.router.navigate(['home']);
+                if (state) {
+                    this.router.navigate(['home']);
+                }
+                else {
+                    this.router.navigate(['login']);
+                }
             });
         });
         this.platform.backButton.subscribeWithPriority(10, () => {
