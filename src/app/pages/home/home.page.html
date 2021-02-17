@@ -8,8 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <div id="container">
-  </div> -->
 
   <ion-grid class="bg-color" fixed>
 
@@ -117,68 +115,44 @@
         </ion-select>
       </ion-item>
       <ion-item *ngIf="formData.lock == 'true' ">
-        <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
-        <!-- <ion-label class="ion-text-wrap">Lock Type<br></ion-label>
+        <!-- <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input> -->
+        <ion-label class="ion-text-wrap">Lock Type<br></ion-label>
         <ion-select [(ngModel)]="formData.lockType" value="" interface="action-sheet">
           <ion-select-option value="1">Pattern</ion-select-option>
           <ion-select-option value="2" >Password</ion-select-option>
           <ion-select-option value="3" >Both</ion-select-option>
-        </ion-select> -->
+        </ion-select>
       </ion-item>
-      <!-- <ion-item *ngIf="formData.lockType == '1' ">
-        <div style="padding-left: 15px;" class="container">
-          <iframe class="stars" src="" frameborder="0" scrolling="0" width="" height="0"></iframe>
-          <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <g class="lock-actives"></g>
-              <g class="lock-lines"></g>
-              <g class="lock-dots">
-                  <circle cx="20" cy="20" r="2"/>
-                  <circle cx="50" cy="20" r="2"/>
-                  <circle cx="80" cy="20" r="2"/>
-  
-                  <circle cx="20" cy="50" r="2"/>
-                  <circle cx="50" cy="50" r="2"/>
-                  <circle cx="80" cy="50" r="2"/>
-  
-                  <circle cx="20" cy="80" r="2"/>
-                  <circle cx="50" cy="80" r="2"/>
-                  <circle cx="80" cy="80" r="2"/>
-              </g>
-            </svg>
-        </div>
-      </ion-item> -->
-      <!-- <ion-item *ngIf="formData.lockType == '2' ">
-        <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
-      </ion-item> -->
 
-      <!-- <div *ngIf="formData.lockType == '3' ">
-        <ion-item >
-          <div style="padding-left: 15px;" class="container">
-            <iframe class="stars" src="" frameborder="0" scrolling="0" width="" height="0"></iframe>
-            <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <g class="lock-actives"></g>
-                <g class="lock-lines"></g>
-                <g class="lock-dots">
-                    <circle cx="20" cy="20" r="2"/>
-                    <circle cx="50" cy="20" r="2"/>
-                    <circle cx="80" cy="20" r="2"/>
-    
-                    <circle cx="20" cy="50" r="2"/>
-                    <circle cx="50" cy="50" r="2"/>
-                    <circle cx="80" cy="50" r="2"/>
-    
-                    <circle cx="20" cy="80" r="2"/>
-                    <circle cx="50" cy="80" r="2"/>
-                    <circle cx="80" cy="80" r="2"/>
-                </g>
-              </svg>
-          </div>
-        </ion-item>
+      <div *ngIf="formData.lockType == '1' " class="ion-text-center">
+        <ion-row>
+          <ion-col>
+            <ion-button style="text-transform: none;" color="danger" size="small" (click)="openPattern()" fill="outline">
+              Open Lock Pattern Pad
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <ion-item *ngIf="formData.lockType == '2' ">
+        <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
+      </ion-item>
+
+      <div *ngIf="formData.lockType == '3' ">
+        <div class="ion-text-center">
+          <ion-row>
+            <ion-col>
+              <ion-button style="text-transform: none;" color="danger" size="small" (click)="openPattern()" fill="outline">
+                Open Lock Pattern Pad
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
 
         <ion-item>
           <ion-input [(ngModel)]="formData.password" value="" type="text" placeholder="Password"></ion-input>
         </ion-item>
-      </div> -->
+      </div>
       
 
       <!-- TOP IMAGE -->

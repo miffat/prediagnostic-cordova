@@ -31,8 +31,8 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "styles": ["src/theme/variables.scss", "src/global.scss", "src/assets/patternLock.css"],
+            "scripts": ["src/assets/patternLock.js", "node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
             "production": {

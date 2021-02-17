@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>test</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content >\n  \n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>test</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content >\n  <h2>Set Pattern Lock</h2>\n  \n</ion-content>\n");
 
 /***/ }),
 
@@ -130,21 +130,6 @@ let TestPage = class TestPage {
         this.platform = platform;
     }
     ngOnInit() {
-        // this.platform.ready().then(() => {
-        //   $rootScope.lock = null
-        //   $rootScope.lock = new PatternLock("#patternContainer");
-        //   //$rootScope.lock2 = new PatternLock("#patternHolderset",{enableSetPattern : true});
-        //   //alert("initHome")
-        //   //console.log($rootScope.lock)
-        //   //$rootScope.lock.getPattern();
-        //   //$rootScope.$apply();
-        //   //$location.reload()
-        //   // this.signaturePad.off();
-        //   if ($window.localStorage["reload"] == 1) {
-        //     $window.location.reload(true)
-        //     $window.localStorage["reload"] = 0
-        //   }
-        // })
     }
 };
 TestPage.ctorParameters = () => [

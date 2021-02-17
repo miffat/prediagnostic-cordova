@@ -63,13 +63,13 @@ export class AppComponent {
       this.authenticationService.authenticationState.subscribe(state => {
         console.log("status=", state);
 
-        // this.router.navigate(['home']);
+        this.router.navigate(['home']);
 
-        if (state) {
-          this.router.navigate(['home']);
-        } else {
-          this.router.navigate(['login']);
-        }
+        // if (state) {
+        //   this.router.navigate(['home']);
+        // } else {
+        //   this.router.navigate(['login']);
+        // }
 
       });
 

@@ -7,6 +7,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ClooneproviderService } from '../../services/clooneprovider.service';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { TestPage } from "../test/test.page";
+import { LockpatternModalPage } from "../lockpattern-modal/lockpattern-modal.page";
 // import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 import { File, FileEntry } from '@ionic-native/File/ngx';
@@ -138,6 +140,14 @@ export class HomePage implements OnInit {
   async openSignatureModal() {
     const modal = await this.modalCtrl.create({
       component: SignatureModalPage,
+      // cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
+  async openPattern() {
+    const modal = await this.modalCtrl.create({
+      component: LockpatternModalPage,
       // cssClass: 'my-custom-class'
     });
     return await modal.present();
@@ -343,6 +353,7 @@ export class HomePage implements OnInit {
     this.formData.branch = this.clooneprovider.branchCode;
     this.formData.signature = this.clooneprovider.signature;
     this.formData.agree = this.clooneprovider.tncAgree;
+    this.formData.pattern = this.clooneprovider.pattern;
     console.log(this.formData)
 
     //TEST

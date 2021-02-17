@@ -151,13 +151,12 @@ let AppComponent = class AppComponent {
             this.screenOrientation.lock('portrait');
             this.authenticationService.authenticationState.subscribe(state => {
                 console.log("status=", state);
-                // this.router.navigate(['home']);
-                if (state) {
-                    this.router.navigate(['home']);
-                }
-                else {
-                    this.router.navigate(['login']);
-                }
+                this.router.navigate(['home']);
+                // if (state) {
+                //   this.router.navigate(['home']);
+                // } else {
+                //   this.router.navigate(['login']);
+                // }
             });
         });
         this.platform.backButton.subscribeWithPriority(10, () => {
@@ -379,6 +378,7 @@ let ClooneproviderService = class ClooneproviderService {
         this.currentAppVersion = '';
         this.branchCode = '';
         this.signature = '';
+        this.pattern = '';
         this.tncAgree = false;
     }
     showAlert(title, text) {
@@ -934,7 +934,7 @@ const routes = [
     },
     {
         path: 'home',
-        loadChildren: () => Promise.all(/*! import() | pages-home-home-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-home-home-module")]).then(__webpack_require__.bind(null, /*! ./pages/home/home.module */ "99Un")).then(m => m.HomePageModule)
+        loadChildren: () => Promise.all(/*! import() | pages-home-home-module */[__webpack_require__.e("default~pages-home-home-module~pages-lockpattern-modal-lockpattern-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("pages-home-home-module")]).then(__webpack_require__.bind(null, /*! ./pages/home/home.module */ "99Un")).then(m => m.HomePageModule)
     },
     {
         path: 'submitted',
@@ -963,6 +963,10 @@ const routes = [
     {
         path: 'test',
         loadChildren: () => __webpack_require__.e(/*! import() | pages-test-test-module */ "pages-test-test-module").then(__webpack_require__.bind(null, /*! ./pages/test/test.module */ "ezsy")).then(m => m.TestPageModule)
+    },
+    {
+        path: 'lockpattern-modal',
+        loadChildren: () => Promise.all(/*! import() | pages-lockpattern-modal-lockpattern-modal-module */[__webpack_require__.e("default~pages-home-home-module~pages-lockpattern-modal-lockpattern-modal-module"), __webpack_require__.e("pages-lockpattern-modal-lockpattern-modal-module")]).then(__webpack_require__.bind(null, /*! ./pages/lockpattern-modal/lockpattern-modal.module */ "Asyt")).then(m => m.LockpatternModalPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

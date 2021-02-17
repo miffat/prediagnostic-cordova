@@ -18,6 +18,7 @@ export class ClooneproviderService {
   public currentAppVersion = '';
   public branchCode = '';
   public signature = '';
+  public pattern = '';
   public tncAgree: boolean = false;
 
   constructor(
