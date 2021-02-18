@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2NrcGF0dGVybi1tb2RhbC5wYWdlLnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".form-list {\n  margin: 12px 5px 12px 5px;\n  padding: 0;\n}\n\n#patternContainer {\n  margin: 10px auto 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2xvY2twYXR0ZXJuLW1vZGFsLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUFBO0VBQ0EsVUFBQTtBQUNGOztBQUVBO0VBQ0UscUJBQUE7QUFDRiIsImZpbGUiOiJsb2NrcGF0dGVybi1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9ybS1saXN0IHtcbiAgbWFyZ2luOiAxMnB4IDVweCAxMnB4IDVweDtcbiAgcGFkZGluZzogMDtcbn1cblxuI3BhdHRlcm5Db250YWluZXIge1xuICBtYXJnaW46IDEwcHggYXV0byAwcHhcbn1cbiJdfQ== */");
 
 /***/ }),
 
@@ -39,12 +39,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LockpatternModalPage = class LockpatternModalPage {
+    // public getLockPattern: any = '';
     constructor(navCtrl, modalCtrl, clooneprovider) {
         this.navCtrl = navCtrl;
         this.modalCtrl = modalCtrl;
         this.clooneprovider = clooneprovider;
         this.lockPattern = '';
-        this.getLockPattern = '';
     }
     ngOnInit() {
         this.lockPattern = new patternlock__WEBPACK_IMPORTED_MODULE_5___default.a('#patternContainer', {
@@ -766,7 +766,7 @@ exports.default = PatternLock;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">Close</ion-button>\n    </ion-buttons>\n    <ion-title>Lock Pattern Pad</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"ion-text-center\">\n    <ion-row>\n      <ion-col>\n        <div id=\"patternContainer\"></div>\n      </ion-col>\n    </ion-row>\n  </div>\n  \n  <div class=\"ion-text-center\">\n    <ion-row>\n      <ion-col>\n        <ion-button class=\"ion-text-center\" style=\"height: 34px; width: 100px;\" color=\"danger\" (click)=\"saveLockPattern()\" >\n          Save\n        </ion-button>\n      </ion-col>\n    </ion-row>\n  </div>\n\n \n\n  <!-- <ion-list>\n    <ion-item>\n      \n    </ion-item>\n    <ion-item>\n     \n    </ion-item>\n  </ion-list> -->\n  \n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">Close</ion-button>\n    </ion-buttons>\n    <ion-title>Lock Pattern Pad</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <ion-list class=\"form-list\">\n      <div class=\"list list-inset\">\n        <div class=\"ion-text-center\"> \n          <ion-row>\n            <ion-col>\n              <div id=\"patternContainer\"></div>\n            </ion-col>\n          </ion-row>\n        </div>\n      </div>\n      \n      \n      <div class=\"ion-text-center\">\n        <ion-row>\n          <ion-col>\n            <ion-button class=\"ion-text-center\" style=\"height: 34px; width: 100px;\" color=\"danger\" (click)=\"saveLockPattern()\" >\n              Save\n            </ion-button>\n          </ion-col>\n        </ion-row>\n      </div>\n    </ion-list>\n  </ion-grid>\n  \n</ion-content>\n");
 
 /***/ })
 

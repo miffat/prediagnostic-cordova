@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 export class ClooneproviderService {
 
   apiUrl: string = "http://eticket.senheng.com.my/sh_ebs/defectAPI.php";
+  apiUrlsubmittedForm: string = "http://eticket.senheng.com.my/sh_ebs/defect_get_submittedAPI.php";
 
   public invalidTitle = 'Login Error';
   public invalidMsg = 'Invalid username/password';

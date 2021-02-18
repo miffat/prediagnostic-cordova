@@ -103,7 +103,7 @@ SubmittedPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decora
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"ion-no-padding\">Submitted Form</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-searchbar animated (ionInput)=\"filterList($event)\" showCancelButton=\"never\"></ion-searchbar>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content pullingIcon=\"arrow-down\" pullingText=\"Pull to refresh\"\n      refreshingText=\"Refreshing...\">\n    </ion-refresher-content>\n  </ion-refresher>\n  <ion-grid class=\"bg-color\" fixed>\n    <ion-list lines=\"full\" class=\"form-list\">\n      <ion-item *ngFor=\"let item of arrlist | sort: {property: column, order: order}\" (click)=\"openDetails(item.id)\">\n        <img class=\"photo\" src=\"http://eticket.senheng.com.my/sh_ebs/uploads/{{item.img}}\" alt=\"\">\n        <div>\n          <h5 style=\"margin: 0;\">{{item.brand}} {{item.model}}</h5>\n          <p class=\"item-details\">{{item.son}}</p>\n          <p class=\"item-details\">{{item.created}}</p>\n        </div>\n      </ion-item>\n      <!-- <ion-item>\n          <img class=\"photo\" src=\"https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80\" alt=\"\">\n          <div>\n            <h2 style=\"margin: 0;\">Model</h2>\n            <p style=\"margin: 0;\">code</p>\n            <p style=\"margin: 0;\">date</p>\n          </div>\n        </ion-item>\n        <ion-button style=\"width: 130px;\" color=\"danger\" (click)=\"loading()\">\n          Loading\n          <ion-icon style=\"padding-left: 5px;\" name=\"log-in\"></ion-icon>\n        </ion-button> -->\n    </ion-list>\n\n   \n\n    <!-- <ion-footer>\n      <ion-button slot=\"start\" (click)=\"sortOldest()\">\n        Sort from Oldest\n      </ion-button>\n      <ion-button slot=\"end\" (click)=\"sortLatest()\">\n        Sort from Latest\n      </ion-button>\n    </ion-footer> -->\n  </ion-grid>\n</ion-content>\n<ion-footer>\n  <ion-row class=\"footer-row\">\n    <ion-col (click)=\"sortOldest()\" class=\"footer-left\">\n      Sort from Oldest\n    </ion-col>\n    <ion-col (click)=\"sortLatest()\" class=\"footer-right\">\n      Sort from Latest\n    </ion-col>\n  </ion-row>\n</ion-footer>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"ion-no-padding\">Submitted Form</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-searchbar animated (ionInput)=\"filterList($event)\" showCancelButton=\"never\"></ion-searchbar>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content pullingIcon=\"arrow-down\" pullingText=\"Pull to refresh\" refreshingText=\"Refreshing...\">\n    </ion-refresher-content>\n  </ion-refresher>\n  <ion-grid class=\"bg-color\" fixed>\n    <ion-item style=\"border-radius: 20px;\">\n      <ion-datetime [(ngModel)]=\"tempStartDate\" slot=\"start\" (ionChange)=\"showStartDate()\" displayFormat=\"DD MMM YYYY\"\n        picker-format=\"DD-MMM-YYYY\" placeholder=\"Select From Date\"></ion-datetime>\n      <ion-datetime [(ngModel)]=\"tempEndDate\" slot=\"end\" (ionChange)=\"showEndDate()\" displayFormat=\"DD MMM YYYY\"\n        picker-format=\"DD-MMM-YYYY\" placeholder=\"Select Until Date\"></ion-datetime>\n    </ion-item>\n    <div class=\"ion-text-center\">\n      <ion-button color=\"light\" style=\"color: black; text-align: center;\" (click)=\"initSubmitted()\">\n        Search Submitted Form\n      </ion-button>\n    </div>\n    <ion-list lines=\"full\" class=\"form-list\">\n      <ion-item *ngFor=\"let item of arrlist | sort: {property: column, order: order}\" (click)=\"openDetails(item.id)\">\n        <img class=\"photo\" src=\"http://eticket.senheng.com.my/sh_ebs/uploads/{{item.img}}\" alt=\"\">\n        <div>\n          <h5 style=\"margin: 0;\">{{item.brand}} {{item.model}}</h5>\n          <p class=\"item-details\">{{item.son}}</p>\n          <p class=\"item-details\">{{item.created}}</p>\n        </div>\n      </ion-item>\n    </ion-list>\n\n\n  </ion-grid>\n</ion-content>\n<ion-footer>\n  <ion-row class=\"footer-row\">\n    <ion-col (click)=\"sortOldest()\" class=\"footer-left\">\n      Sort from Oldest\n    </ion-col>\n    <ion-col (click)=\"sortLatest()\" class=\"footer-right\">\n      Sort from Latest\n    </ion-col>\n  </ion-row>\n</ion-footer>\n");
 
 /***/ }),
 
@@ -145,9 +145,21 @@ let SubmittedPage = class SubmittedPage {
         this.ascending = true;
         this.descending = true;
         this.column = 'created';
+        this.startDate = '';
+        this.endDate = '';
+        this.tempStartDate = '';
+        this.tempEndDate = '';
         // this.initSubmitted
     }
     ngOnInit() {
+    }
+    showStartDate() {
+        this.startDate = this.tempStartDate.split('T')[0];
+        console.log(this.startDate);
+    }
+    showEndDate() {
+        this.endDate = this.tempEndDate.split('T')[0];
+        console.log(this.endDate);
     }
     sortOldest() {
         this.order = this.descending ? 1 : -1;
@@ -155,42 +167,54 @@ let SubmittedPage = class SubmittedPage {
     sortLatest() {
         this.order = this.ascending ? -1 : 1;
     }
-    // sortArr(){
-    //   this.arrlist.sort((obj1, obj2) => {
-    //     if (obj1.created > obj2.created) {
-    //         return 1;
-    //     }
-    //     if (obj1.created < obj2.created) {
-    //         return -1;
-    //     }
-    //     return 0;
-    //   });
-    // }
     ionViewWillEnter() {
-        this.initSubmitted();
+        // this.initSubmitted();
         this.isDataAvailable = true;
     }
     doRefresh(event) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            console.log('Begin async operation');
-            this.initSubmitted();
-            let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_7__["Headers"]({ 'Content-Type': 'application/x-www-form-urlencoded' });
-            let postForm = {
-                getsubmitlist: this.clooneprovider.branchCode
-            };
-            console.log(postForm);
-            let loading = yield this.clooneprovider.showLoading();
-            this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
-                let apiData = resp.json();
-                this.arrlist = apiData;
-                this.arrlistBackup = apiData;
-                console.log('Succes get data', this.arrlist);
-                loading.dismiss();
+            if (this.startDate == "") {
                 event.target.complete(); //close ion-refresher
-            }, (error) => {
-                console.log('Failed: ', error);
-                this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
-            });
+                this.clooneprovider.showAlert('Missing Input!', 'Please input From Date');
+            }
+            else if (this.endDate == "") {
+                event.target.complete(); //close ion-refresher
+                this.clooneprovider.showAlert('Missing Input!', 'Please input Until Date');
+            }
+            else if (this.startDate > this.endDate) {
+                event.target.complete(); //close ion-refresher
+                this.clooneprovider.showAlert('Wrong Date Input!', 'Please input correct date range');
+            }
+            else {
+                console.log('Begin async operation');
+                this.initSubmitted();
+                let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_7__["Headers"]({ 'Content-Type': 'application/x-www-form-urlencoded' });
+                let postForm = {
+                    getsubmitlist: this.clooneprovider.branchCode,
+                    searchDateFrom: this.startDate,
+                    searchDateUntil: this.endDate,
+                };
+                console.log(postForm);
+                let loading = yield this.clooneprovider.showLoading();
+                this.http.post(this.clooneprovider.apiUrlsubmittedForm, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
+                    let apiData = resp.json();
+                    if (apiData == null) {
+                        loading.dismiss();
+                        event.target.complete(); //close ion-refresher
+                        this.clooneprovider.showAlert('No Data', 'Please choose another date');
+                    }
+                    else {
+                        this.arrlist = apiData;
+                        this.arrlistBackup = apiData;
+                        console.log('Succes get data', this.arrlist);
+                        loading.dismiss();
+                        event.target.complete(); //close ion-refresher
+                    }
+                }, (error) => {
+                    console.log('Failed: ', error);
+                    this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
+                });
+            }
             // setTimeout(() => {
             //   console.log('Async operation has ended');
             //   event.target.complete();
@@ -199,21 +223,41 @@ let SubmittedPage = class SubmittedPage {
     }
     initSubmitted() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_7__["Headers"]({ 'Content-Type': 'application/x-www-form-urlencoded' });
-            let postForm = {
-                getsubmitlist: this.clooneprovider.branchCode
-            };
-            console.log(postForm);
-            let loading = yield this.clooneprovider.showLoading();
-            this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
-                let apiData = resp.json();
-                this.arrlist = apiData;
-                this.arrlistBackup = apiData;
-                loading.dismiss();
-            }, (error) => {
-                console.log('Failed: ', error);
-                this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
-            });
+            if (this.startDate == "") {
+                this.clooneprovider.showAlert('Missing Input!', 'Please input From Date');
+            }
+            else if (this.endDate == "") {
+                this.clooneprovider.showAlert('Missing Input!', 'Please input Until Date');
+            }
+            else if (this.startDate > this.endDate) {
+                this.clooneprovider.showAlert('Wrong Date Input!', 'Please input correct date range');
+            }
+            else {
+                let headers = new _angular_http__WEBPACK_IMPORTED_MODULE_7__["Headers"]({ 'Content-Type': 'application/x-www-form-urlencoded' });
+                let postForm = {
+                    getsubmitlist: this.clooneprovider.branchCode,
+                    searchDateFrom: this.startDate,
+                    searchDateUntil: this.endDate,
+                };
+                console.log(postForm);
+                let loading = yield this.clooneprovider.showLoading();
+                // console.log(this.clooneprovider.jsonToURLEncoded(postForm))
+                this.http.post(this.clooneprovider.apiUrlsubmittedForm, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
+                    let apiData = resp.json();
+                    if (apiData == null) {
+                        loading.dismiss();
+                        this.clooneprovider.showAlert('No Data', 'Please choose another date');
+                    }
+                    else {
+                        this.arrlist = apiData;
+                        this.arrlistBackup = apiData;
+                        loading.dismiss();
+                    }
+                }, (error) => {
+                    console.log('Failed: ', error);
+                    this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
+                });
+            }
         });
     }
     // SEARCH ITEMS

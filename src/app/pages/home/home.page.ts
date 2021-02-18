@@ -17,12 +17,14 @@ import { Http, Headers } from '@angular/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
 import { FilePath } from '@ionic-native/file-path/ngx';
+// import PatternLock from "patternlock";
 import { finalize } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
 const STORAGE_KEY = 'my_images';
 declare let window: any;
+const digits_only = string => [...string].every(c => '0123456789'.includes(c));
 
 @Component({
   selector: 'app-home',
@@ -52,7 +54,8 @@ export class HomePage implements OnInit {
   public ImageRightUrl: any = '';
   public ImageLeftUrl: any = '';
   public ExtraImageUrl = [];
-  // public fileTransfer: FileTransferObject = this.transfer.create();
+
+  public lockPattern: any = '';
 
   constructor(
     public router: Router,
@@ -93,6 +96,12 @@ export class HomePage implements OnInit {
     this.formData.agree = 'false';
     this.formData.password = '';
     this.formData.pattern = '';
+
+    // this.lockPattern = new PatternLock('#patternContainer',{
+    //   onDraw(pattern){
+    //     console.log(pattern);
+    //   }
+    // })
   }
 
   pathForImage(img) {
@@ -392,11 +401,15 @@ export class HomePage implements OnInit {
       return false
     } else if (this.formData.son == "" || this.formData.son == null || this.formData.docType == 'CSO/SSO') {
       loading.dismiss();
-      this.clooneprovider.showAlert('Missing Input!', 'Complete SON is required');
+      this.clooneprovider.showAlert('Missing Input!', 'Complete CSO/SSO is required');
       return false
     } else if (this.formData.son.toString().length != 5) {
       loading.dismiss();
-      this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input 5 digits for CSO/SSO.');
+      this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input 5 digits for CSO/SSO');
+      return false
+    } else if (digits_only(this.formData.son) == false) {
+      loading.dismiss();
+      this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input number only for CSO/SSO');
       return false
     } else if (this.formData.sim == "false") {
       loading.dismiss();

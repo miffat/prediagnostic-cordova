@@ -8,34 +8,29 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center">
-    <ion-row>
-      <ion-col>
-        <div id="patternContainer"></div>
-      </ion-col>
-    </ion-row>
-  </div>
-  
-  <div class="ion-text-center">
-    <ion-row>
-      <ion-col>
-        <ion-button class="ion-text-center" style="height: 34px; width: 100px;" color="danger" (click)="saveLockPattern()" >
-          Save
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </div>
-
- 
-
-  <!-- <ion-list>
-    <ion-item>
+  <ion-grid>
+    <ion-list class="form-list">
+      <div class="list list-inset">
+        <div class="ion-text-center"> 
+          <ion-row>
+            <ion-col>
+              <div id="patternContainer"></div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
       
-    </ion-item>
-    <ion-item>
-     
-    </ion-item>
-  </ion-list> -->
+      
+      <div class="ion-text-center">
+        <ion-row>
+          <ion-col>
+            <ion-button class="ion-text-center" style="height: 34px; width: 100px;" color="danger" (click)="saveLockPattern()" >
+              Save
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-list>
+  </ion-grid>
   
-
 </ion-content>

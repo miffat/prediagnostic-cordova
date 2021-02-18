@@ -372,6 +372,7 @@ let ClooneproviderService = class ClooneproviderService {
         this.alertCtrl = alertCtrl;
         this.loadingController = loadingController;
         this.apiUrl = "http://eticket.senheng.com.my/sh_ebs/defectAPI.php";
+        this.apiUrlsubmittedForm = "http://eticket.senheng.com.my/sh_ebs/defect_get_submittedAPI.php";
         this.invalidTitle = 'Login Error';
         this.invalidMsg = 'Invalid username/password';
         this.unableConnectTitle = 'Unable to connect to server';

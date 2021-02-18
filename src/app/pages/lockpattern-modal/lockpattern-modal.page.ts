@@ -11,7 +11,7 @@ import { ClooneproviderService } from '../../services/clooneprovider.service';
 export class LockpatternModalPage implements OnInit {
 
   public lockPattern: any = '';
-  public getLockPattern: any = '';
+  // public getLockPattern: any = '';
 
   constructor(
     public navCtrl: NavController,

@@ -20,6 +20,11 @@ export class SubmittedPage implements OnInit {
   order: number;
   column: string = 'created';
 
+  public startDate: any = '';
+  public endDate: any = '';
+  public tempStartDate: any = '';
+  public tempEndDate: any = '';
+
   constructor(
     public modalCtrl: ModalController,
     private clooneprovider: ClooneproviderService,
@@ -30,7 +35,16 @@ export class SubmittedPage implements OnInit {
   }
 
   ngOnInit() {
-    
+  }
+
+  showStartDate(){
+    this.startDate = this.tempStartDate.split('T')[0]; 
+    console.log(this.startDate);
+  }
+
+  showEndDate(){
+    this.endDate = this.tempEndDate.split('T')[0]; 
+    console.log(this.endDate);
   }
 
   sortOldest(){
@@ -41,49 +55,53 @@ export class SubmittedPage implements OnInit {
     this.order = this.ascending ? -1 : 1;
   }
 
-  // sortArr(){
-  //   this.arrlist.sort((obj1, obj2) => {
-  //     if (obj1.created > obj2.created) {
-  //         return 1;
-  //     }
-  
-  //     if (obj1.created < obj2.created) {
-  //         return -1;
-  //     }
-  
-  //     return 0;
-  //   });
-  // }
-
   ionViewWillEnter(){
-    this.initSubmitted();
+    // this.initSubmitted();
     this.isDataAvailable = true
   }
 
   async doRefresh(event) {
-    console.log('Begin async operation');
-    this.initSubmitted();
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let postForm = {
-      getsubmitlist: this.clooneprovider.branchCode
-    }
-    console.log(postForm)
-    let loading = await this.clooneprovider.showLoading();
-
-    this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
-      let apiData           = resp.json();
-
-      this.arrlist = apiData;
-      this.arrlistBackup = apiData;
-      console.log('Succes get data', this.arrlist)
-
-      loading.dismiss();
+    if(this.startDate == ""){
       event.target.complete(); //close ion-refresher
-
-    }, (error) => { 
-      console.log('Failed: ', error)
-      this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
-    });
+      this.clooneprovider.showAlert('Missing Input!', 'Please input From Date');
+    } else if(this.endDate == ""){
+      event.target.complete(); //close ion-refresher
+      this.clooneprovider.showAlert('Missing Input!', 'Please input Until Date');
+    } else if(this.startDate > this.endDate){
+      event.target.complete(); //close ion-refresher
+      this.clooneprovider.showAlert('Wrong Date Input!', 'Please input correct date range');
+    } else {
+      console.log('Begin async operation');
+      this.initSubmitted();
+      let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+      let postForm = {
+        getsubmitlist: this.clooneprovider.branchCode,
+        searchDateFrom: this.startDate,
+        searchDateUntil: this.endDate,
+      }
+      console.log(postForm)
+      let loading = await this.clooneprovider.showLoading();
+  
+      this.http.post(this.clooneprovider.apiUrlsubmittedForm, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
+        let apiData           = resp.json();
+        if(apiData == null){
+          loading.dismiss();
+          event.target.complete(); //close ion-refresher
+          this.clooneprovider.showAlert('No Data', 'Please choose another date');
+        } else {
+          this.arrlist = apiData;
+          this.arrlistBackup = apiData;
+          console.log('Succes get data', this.arrlist)
+    
+          loading.dismiss();
+          event.target.complete(); //close ion-refresher
+        }
+      }, (error) => { 
+        console.log('Failed: ', error)
+        this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
+      });
+    }
+    
     
 
     // setTimeout(() => {
@@ -93,24 +111,43 @@ export class SubmittedPage implements OnInit {
   }
 
   async initSubmitted() {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let postForm = {
-      getsubmitlist: this.clooneprovider.branchCode
-		}
-    console.log(postForm)
-    let loading = await this.clooneprovider.showLoading();
+    if(this.startDate == ""){
+      this.clooneprovider.showAlert('Missing Input!', 'Please input From Date');
+    } else if(this.endDate == ""){
+      this.clooneprovider.showAlert('Missing Input!', 'Please input Until Date');
+    } else if(this.startDate > this.endDate){
+      this.clooneprovider.showAlert('Wrong Date Input!', 'Please input correct date range');
+    } else {
+  
+      let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+      let postForm = {
+        getsubmitlist: this.clooneprovider.branchCode,
+        searchDateFrom: this.startDate,
+        searchDateUntil: this.endDate,
+      }
+      console.log(postForm)
+      let loading = await this.clooneprovider.showLoading();
+      // console.log(this.clooneprovider.jsonToURLEncoded(postForm))
+  
+      this.http.post(this.clooneprovider.apiUrlsubmittedForm, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
+        let apiData           = resp.json();
+        if(apiData == null){
+          loading.dismiss();
+          this.clooneprovider.showAlert('No Data', 'Please choose another date');
+        } else {
+          this.arrlist = apiData;
+          this.arrlistBackup = apiData;
+    
+          loading.dismiss();
+        }
+  
+      }, (error) => { 
+        console.log('Failed: ', error)
+        this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
+      });
+    }
 
-    this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
-      let apiData           = resp.json();
-      this.arrlist = apiData;
-      this.arrlistBackup = apiData;
-
-      loading.dismiss();
-
-    }, (error) => { 
-      console.log('Failed: ', error)
-      this.clooneprovider.showAlert('Error!', 'Network error. Please pull to refresh');
-    });
+    
 
   }
 

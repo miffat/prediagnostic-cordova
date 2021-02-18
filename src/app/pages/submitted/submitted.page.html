@@ -10,11 +10,21 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar animated (ionInput)="filterList($event)" showCancelButton="never"></ion-searchbar>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh"
-      refreshingText="Refreshing...">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
   <ion-grid class="bg-color" fixed>
+    <ion-item style="border-radius: 20px;">
+      <ion-datetime [(ngModel)]="tempStartDate" slot="start" (ionChange)="showStartDate()" displayFormat="DD MMM YYYY"
+        picker-format="DD-MMM-YYYY" placeholder="Select From Date"></ion-datetime>
+      <ion-datetime [(ngModel)]="tempEndDate" slot="end" (ionChange)="showEndDate()" displayFormat="DD MMM YYYY"
+        picker-format="DD-MMM-YYYY" placeholder="Select Until Date"></ion-datetime>
+    </ion-item>
+    <div class="ion-text-center">
+      <ion-button color="light" style="color: black; text-align: center;" (click)="initSubmitted()">
+        Search Submitted Form
+      </ion-button>
+    </div>
     <ion-list lines="full" class="form-list">
       <ion-item *ngFor="let item of arrlist | sort: {property: column, order: order}" (click)="openDetails(item.id)">
         <img class="photo" src="http://eticket.senheng.com.my/sh_ebs/uploads/{{item.img}}" alt="">
@@ -24,30 +34,9 @@
           <p class="item-details">{{item.created}}</p>
         </div>
       </ion-item>
-      <!-- <ion-item>
-          <img class="photo" src="https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="">
-          <div>
-            <h2 style="margin: 0;">Model</h2>
-            <p style="margin: 0;">code</p>
-            <p style="margin: 0;">date</p>
-          </div>
-        </ion-item>
-        <ion-button style="width: 130px;" color="danger" (click)="loading()">
-          Loading
-          <ion-icon style="padding-left: 5px;" name="log-in"></ion-icon>
-        </ion-button> -->
     </ion-list>
 
-   
 
-    <!-- <ion-footer>
-      <ion-button slot="start" (click)="sortOldest()">
-        Sort from Oldest
-      </ion-button>
-      <ion-button slot="end" (click)="sortLatest()">
-        Sort from Latest
-      </ion-button>
-    </ion-footer> -->
   </ion-grid>
 </ion-content>
 <ion-footer>

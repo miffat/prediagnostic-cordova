@@ -19,7 +19,7 @@
     -moz-box-sizing: border-box;
  }
 .patt-circ.hovered{
-    border:3px solid #4a87ee;
+    border:3px solid #C11B17;
 }
 
 .patt-error .patt-circ.hovered{
@@ -31,7 +31,7 @@
 .patt-dots{
     width: 10px;height: 10px;
     border-radius:20px;
-    border:8px solid #11c1f3;
+    border:8px solid red;
     position:absolute;
     top:50%;
     left:50%;

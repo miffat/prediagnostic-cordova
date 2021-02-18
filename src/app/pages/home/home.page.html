@@ -43,8 +43,9 @@
           <ion-select-option value="CSO">CSO</ion-select-option>
           <ion-select-option value="SSO">SSO</ion-select-option>
         </ion-select>
-        <ion-col>
+        <ion-col> 
           <ion-input [(ngModel)]="formData.son" type="tel" style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input>
+          <!-- <ion-input [(ngModel)]="formData.son" (ionInput)="keypress($event)" style="text-align: right;" maxlength="5" placeholder="eg: 12345"></ion-input> -->
         </ion-col>
       </ion-item>
     </ion-list>
