@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-grid class="bg-color" fixed>
 
     <ion-list lines="full" class="form-list">
@@ -38,8 +37,8 @@
         <ion-col>
           {{clooneprovider.branchCode}}*
         </ion-col>
-        <ion-select [(ngModel)]="formData.docType" value="" interface="popover">
-          <ion-select-option value="CSO/SSO" disabled>CSO/SSO</ion-select-option>
+        <ion-select [(ngModel)]="formData.docType" value="" placeholder="CSO or SSO" interface="popover">
+          <!-- <ion-select-option value="CSO/SSO" disabled>CSO/SSO</ion-select-option> -->
           <ion-select-option value="CSO">CSO</ion-select-option>
           <ion-select-option value="SSO">SSO</ion-select-option>
         </ion-select>

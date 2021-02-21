@@ -80,9 +80,36 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.menuCtrl.enable(true);
+    // this.ionViewWillEnter()
+    // this.menuCtrl.enable(true);
     
-    this.formData.docType = 'CSO/SSO';
+    // this.formData.docType = '';
+    // this.formData.switchon = 'false';
+    // this.formData.battery = 'false';
+    // this.formData.sim2 = 'false';
+    // this.formData.sim = 'false';
+    // this.formData.factory = 'false';
+    // this.formData.accessories = 'false';
+    // this.formData.dent = 'false';
+    // this.formData.lock = 'false';
+    // this.formData.lockType = '';
+    // this.formData.accessories_details = '';
+    // this.formData.agree = 'false';
+    // this.formData.password = '';
+    // this.formData.pattern = '';
+
+    // this.lockPattern = new PatternLock('#patternContainer',{
+    //   onDraw(pattern){
+    //     console.log(pattern);
+    //   }
+    // })
+  }
+
+  ionViewWillEnter(){
+    this.menuCtrl.enable(true);
+    this.formData = {}
+    
+    this.formData.docType = '';
     this.formData.switchon = 'false';
     this.formData.battery = 'false';
     this.formData.sim2 = 'false';
@@ -97,11 +124,29 @@ export class HomePage implements OnInit {
     this.formData.password = '';
     this.formData.pattern = '';
 
-    // this.lockPattern = new PatternLock('#patternContainer',{
-    //   onDraw(pattern){
-    //     console.log(pattern);
-    //   }
-    // })
+    this.tempImageTop = '';
+    this.tempImageBottom = '';
+    this.tempImageFront = '';
+    this.tempImageBack = '';
+    this.tempImageRight = '';
+    this.tempImageLeft = '';
+    this.tempExtraImage = [];
+    this.extraTemp = [];
+
+    this.countImageUpload = 1;
+    this.ImageTopUrl = '';
+    this.ImageBottomUrl = '';
+    this.ImageFrontUrl = '';
+    this.ImageBackUrl = '';
+    this.ImageRightUrl = '';
+    this.ImageLeftUrl = '';
+    this.ExtraImageUrl = [];
+
+    this.lockPattern = '';
+
+    this.clooneprovider.signature = '';
+    this.clooneprovider.tncAgree = false;
+    this.clooneprovider.pattern = '';
   }
 
   pathForImage(img) {
@@ -359,6 +404,7 @@ export class HomePage implements OnInit {
   }
 
   async submitForm() {
+    // this.router.navigate(['success']);
     // let now = moment().format('YYYYMMDD');
     let loading = await this.clooneprovider.showLoading();
     
@@ -399,17 +445,48 @@ export class HomePage implements OnInit {
       loading.dismiss();
       this.clooneprovider.showAlert('Missing Input!', 'Product IMEI is required');
       return false
-    } else if (this.formData.son == "" || this.formData.son == null || this.formData.docType == 'CSO/SSO') {
+    } else if (this.formData.docType == '') {
       loading.dismiss();
-      this.clooneprovider.showAlert('Missing Input!', 'Complete CSO/SSO is required');
+      this.clooneprovider.showAlert('Missing Input!', 'Please choose CSO or SSO');
       return false
-    } else if (this.formData.son.toString().length != 5) {
+    } else if (this.formData.docType == "CSO" && this.formData.son == "" || this.formData.son == null) {
       loading.dismiss();
-      this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input 5 digits for CSO/SSO');
+      this.clooneprovider.showAlert('Missing Input!', 'CSO number is required');
       return false
-    } else if (digits_only(this.formData.son) == false) {
+    } else if (this.formData.docType == "SSO" && this.formData.son == "" || this.formData.son == null) {
       loading.dismiss();
-      this.clooneprovider.showAlert('Invalid CSO/SSO', 'Please input number only for CSO/SSO');
+      this.clooneprovider.showAlert('Missing Input!', 'SSO number is required');
+      return false
+    } 
+    
+    
+    // else if (this.formData.son == "" || this.formData.son == null) {
+    //   loading.dismiss();
+    //   this.clooneprovider.showAlert('Missing Input!', 'CSO or SSO number is required');
+    //   return false
+    // } 
+
+    // else if (this.formData.son == "" || this.formData.son == null || this.formData.docType == 'CSO/SSO') {
+    //   loading.dismiss();
+    //   this.clooneprovider.showAlert('Missing Input!', 'Please choose CSO or SSO');
+    //   return false
+    // } 
+    
+    else if (this.formData.son.toString().length != 5 && this.formData.docType == "CSO") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('Invalid CSO', 'Please input 5 digits for CSO');
+      return false
+    } else if (this.formData.son.toString().length != 5 && this.formData.docType == "SSO") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('Invalid SSO', 'Please input 5 digits for SSO');
+      return false
+    } else if (digits_only(this.formData.son) == false && this.formData.docType == "CSO") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('Invalid CSO', 'Please input number only for CSO');
+      return false
+    } else if (digits_only(this.formData.son) == false && this.formData.docType == "SSO") {
+      loading.dismiss();
+      this.clooneprovider.showAlert('Invalid SSO', 'Please input number only for SSO');
       return false
     } else if (this.formData.sim == "false") {
       loading.dismiss();
@@ -564,7 +641,7 @@ export class HomePage implements OnInit {
       //Api here
       this.http.post(this.clooneprovider.apiUrl, formData).subscribe((resp) => {
         let apiData = resp.json();
-        console.log('Succes get data', apiData)
+        console.log('Success get data', apiData)
         console.log('data', JSON.stringify(resp.json()))
 
         if (this.countImageUpload == 6) {
@@ -624,7 +701,7 @@ export class HomePage implements OnInit {
       //Api here
       this.http.post(this.clooneprovider.apiUrl, formData).subscribe((resp) => {
         let apiData = resp.json();
-        console.log('Succes get data', apiData)
+        console.log('Success get data', apiData)
 
       }, (error) => {
         console.log('Failed: ', error)
@@ -644,7 +721,7 @@ export class HomePage implements OnInit {
 
     this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
       let apiData = resp.json();
-      console.log('Succes get data', apiData)
+      console.log('Success get data', apiData)
       this.loadingController.dismiss();
 
       if(apiData.success === 1){

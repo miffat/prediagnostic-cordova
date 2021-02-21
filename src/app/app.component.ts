@@ -63,7 +63,7 @@ export class AppComponent {
       this.authenticationService.authenticationState.subscribe(state => {
         console.log("status=", state);
 
-        // this.router.navigate(['home']);
+        // this.router.navigate(['success']);
 
         if (state) {
           this.router.navigate(['home']);
@@ -142,8 +142,12 @@ export class AppComponent {
       let apiData           = resp.json();
       console.log('Succes get data', apiData)
  
-      if(apiData.success == 0){
+      if(apiData.isCurrent == true || apiData.isCurrent == 'true'){
+
+      }else if(apiData.success == 0){
         this.clooneprovider.showAlert('Warning!', 'Network Error')
+      }else{
+        this.clooneprovider.showAlert(apiData.title,apiData.message)
       }
       
     }, (error) => { 

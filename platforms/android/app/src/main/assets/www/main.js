@@ -151,7 +151,7 @@ let AppComponent = class AppComponent {
             this.screenOrientation.lock('portrait');
             this.authenticationService.authenticationState.subscribe(state => {
                 console.log("status=", state);
-                // this.router.navigate(['home']);
+                // this.router.navigate(['success']);
                 if (state) {
                     this.router.navigate(['home']);
                 }
@@ -217,8 +217,13 @@ let AppComponent = class AppComponent {
         this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
             let apiData = resp.json();
             console.log('Succes get data', apiData);
-            if (apiData.success == 0) {
+            if (apiData.isCurrent == true || apiData.isCurrent == 'true') {
+            }
+            else if (apiData.success == 0) {
                 this.clooneprovider.showAlert('Warning!', 'Network Error');
+            }
+            else {
+                this.clooneprovider.showAlert(apiData.title, apiData.message);
             }
         }, (error) => {
             console.log('Failed: ', error);

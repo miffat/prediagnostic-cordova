@@ -95,7 +95,12 @@ let SuccessPage = class SuccessPage {
     ngOnInit() {
     }
     home() {
-        this.router.navigate(['home']);
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            // this.router.navigate(['home']);
+            this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
+                this.router.navigate(["/home"]);
+            });
+        });
     }
 };
 SuccessPage.ctorParameters = () => [
