@@ -89,6 +89,10 @@ export class LoginPage implements OnInit {
 
   }
 
+  updateApps(){
+    this.clooneprovider.showAlert('Update Available','Please update to the latest Pre-Diagnostic App.');
+  }
+
   ionViewDidLeave() {
     this.menuCtrl.enable(true);
   }

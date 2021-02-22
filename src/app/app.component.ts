@@ -134,20 +134,21 @@ export class AppComponent {
     let postForm = {
       check_version: 'check_version',
       os: this.thisPlatform,
-      version: this.clooneprovider.currentAppVersion,
+      version: this.clooneprovider.currentAppVersion, 
 		}
-    console.log(postForm)
+    console.log(postForm) 
 
     this.http.post(this.clooneprovider.apiUrl, this.clooneprovider.jsonToURLEncoded(postForm), { headers: headers }).subscribe((resp) => {
       let apiData           = resp.json();
       console.log('Succes get data', apiData)
  
       if(apiData.isCurrent == true || apiData.isCurrent == 'true'){
-
+        this.clooneprovider.appVersion = apiData.isCurrent
       }else if(apiData.success == 0){
         this.clooneprovider.showAlert('Warning!', 'Network Error')
       }else{
         this.clooneprovider.showAlert(apiData.title,apiData.message)
+        this.clooneprovider.appVersion = apiData.isCurrent
       }
       
     }, (error) => { 

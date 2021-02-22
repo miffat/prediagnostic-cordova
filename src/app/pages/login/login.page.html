@@ -36,11 +36,17 @@
       </ion-text>
     </ion-list>
 
-    <div class="login_btn">
-      <ion-button style="width: 130px;" color="danger" (click)="login()" [disabled]="!loginform.valid">
+    <div class="login_btn">  
+      <ion-button *ngIf="clooneprovider.appVersion == false " style="width: 130px;" color="danger" (click)="updateApps()" [disabled]="!loginform.valid">
         Login
         <ion-icon style="padding-left: 5px;" name="log-in"></ion-icon>
       </ion-button>
+
+      <ion-button *ngIf="clooneprovider.appVersion == true " style="width: 130px;" color="danger" (click)="login()" [disabled]="!loginform.valid">
+        Login
+        <ion-icon style="padding-left: 5px;" name="log-in"></ion-icon>
+      </ion-button>
+      
     </div>
   </form>
 

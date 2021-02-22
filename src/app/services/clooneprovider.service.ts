@@ -21,6 +21,7 @@ export class ClooneproviderService {
   public signature = '';
   public pattern = '';
   public tncAgree: boolean = false;
+  public appVersion: boolean;
 
   constructor(
     public alertCtrl: AlertController,
